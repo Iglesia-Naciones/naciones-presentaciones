@@ -132,3 +132,62 @@ body:has(.output){overflow:hidden;background:#000}
 .slide-thumb .screen-background{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .slide-thumb span{max-width:100%;overflow:hidden;overflow-wrap:anywhere}
 .screen-text{overflow-wrap:anywhere;word-break:normal}
+
+/* V7: rename presentations + independent slide-grid scrollbar */
+@media (min-width: 761px){
+  #view-show{
+    height:calc(100vh - 68px);
+    min-height:0;
+    overflow:hidden;
+    display:none;
+    padding:16px;
+  }
+  #view-show.active{display:block}
+  #view-show .show-grid{
+    height:100%;
+    min-height:0;
+    grid-template-rows:minmax(0,1fr);
+  }
+  #view-show .left-panel,
+  #view-show .center-panel,
+  #view-show .right-stack{min-height:0;height:100%}
+  #view-show .left-panel{overflow:hidden}
+  #view-show .library-items{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+  #view-show .center-panel{overflow:hidden}
+  #view-show .slide-grid{
+    min-height:0;
+    height:0;
+    flex:1 1 auto;
+    overflow-y:auto;
+    overflow-x:hidden;
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+  }
+  #view-show .right-stack{overflow-y:auto;overscroll-behavior:contain}
+  #view-show .quick-images-dock,
+  #view-show .bottom-controls,
+  #view-show .slide-toolbar{flex:0 0 auto}
+}
+.presentation-folder-actions{display:flex;align-items:stretch;gap:2px;min-width:0}
+.presentation-folder-actions .presentation-folder-head{flex:1;min-width:0}
+.presentation-rename-btn{
+  flex:0 0 30px;
+  align-self:center;
+  margin-right:5px;
+  border:1px solid transparent;
+  border-radius:5px;
+  background:transparent;
+  color:#8095ac;
+  font-size:13px;
+  padding:6px 7px;
+  opacity:.7;
+}
+.presentation-folder:hover .presentation-rename-btn,
+.presentation-folder.active .presentation-rename-btn{opacity:1}
+.presentation-rename-btn:hover{background:#263a50;border-color:#3b5872;color:#fff}
+@media (max-width:760px){
+  #view-show{height:auto;min-height:calc(100vh - 60px);overflow:visible}
+  #view-show .show-grid{height:auto;min-height:0}
+  #view-show .center-panel{min-height:520px}
+  #view-show .slide-grid{max-height:65vh;min-height:240px;overflow-y:auto}
+}

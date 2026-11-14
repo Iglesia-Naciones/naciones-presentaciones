@@ -25,3 +25,20 @@ PRUEBA
 
 RESPALDO
 Exporta un respaldo antes de reemplazar archivos. No elimines el almacenamiento local del navegador.
+
+
+V7 — CAMBIAR NOMBRE DE PRESENTACIÓN
+1. Ve a Presentar.
+2. En el panel izquierdo, ubica la presentación.
+3. Pulsa el lápiz que aparece a la derecha del nombre.
+4. Escribe el nombre nuevo y acepta.
+También puedes hacer clic derecho sobre el nombre de la presentación.
+El cambio se guarda sin alterar sus diapositivas.
+
+V7 — SCROLL DE DIAPOSITIVAS
+- Cuando tengas muchas diapositivas, utiliza la rueda del mouse o la barra de scroll dentro de la cuadrícula central.
+- La cuadrícula se desplaza por separado; la vista previa y los controles inferiores permanecen fijos.
+
+INSTALACIÓN V7
+Reemplaza los archivos del ZIP, especialmente `index.html`, `styles.css`, `app.js` y `sw.js`.
+Conserva `manifest.webmanifest` y no borres IndexedDB ni los datos del navegador.

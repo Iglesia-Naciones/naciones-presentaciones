@@ -1,4 +1,4 @@
-const CACHE='naciones-presentaciones-pro-v8-preview-folders';
+const CACHE='naciones-presentaciones-pro-v9-rename-scroll';
 const ASSETS=[
  './','./index.html','./styles.css?v=9','./app.js?v=9',
  './naciones-logo.png','./isotipo.png','./favicon-32.png','./favicon.ico','./apple-touch-icon.png'

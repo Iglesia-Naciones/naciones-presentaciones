@@ -150,6 +150,23 @@ function showSongContextMenu(event,songId){
 function hideSongContextMenu(){$('song-context-menu')?.classList.add('hidden')}
 async function newPresentation(){let name=prompt('Nombre de la presentación');if(!name)return;let p=defaultPresentation(name);presentations.push(p);await put('presentations',p);activePresentation=p;slides=[];selected=-1;renderAll();toast('Presentación creada')}
 async function switchPresentation(id){let p=presentations.find(x=>x.id===id);if(!p)return;await saveCurrent();activePresentation=p;slides=structuredClone(p.slides||[]);selected=slides.length?0:-1;renderAll()}
+async function renamePresentation(id){
+ const presentation=presentations.find(p=>p.id===id);
+ if(!presentation)return;
+ const proposed=prompt('Nuevo nombre de la presentación:',presentation.name||'');
+ if(proposed===null)return;
+ const name=proposed.trim();
+ if(!name){toast('El nombre no puede quedar vacío');return}
+ const duplicate=presentations.find(p=>p.id!==id&&(p.name||'').trim().toLocaleLowerCase()===name.toLocaleLowerCase());
+ if(duplicate){toast('Ya existe una presentación con ese nombre');return}
+ if(activePresentation?.id===id)await saveCurrent();
+ presentation.name=name;
+ presentation.updated=Date.now();
+ await put('presentations',presentation);
+ if(activePresentation?.id===id)activePresentation=presentation;
+ renderAll();
+ toast('Presentación renombrada a “'+name+'”');
+}
 function renderLibraryList(){
  let items=$('library-items'),q=$('library-search').value.toLowerCase();
  $('song-count').textContent=songs.length;$('media-count').textContent=media.length;
@@ -164,11 +181,13 @@ function renderLibraryList(){
   const presentationCards=visiblePresentations.filter(p=>(p.name||'').toLowerCase().includes(q)).map(p=>{
    const ps=p.slides||[],active=p.id===activePresentation?.id;
    return `<div class="presentation-folder ${active?'active':''}" data-drop-presentation="${p.id}">
-    <button class="presentation-folder-head" data-open-presentation="${p.id}">
-     <span class="folder-icon">▣</span>
-     <span class="folder-name"><b>${esc(p.name)}</b><small>Presentación · ${ps.length} diapositivas</small></span>
-     <span class="folder-more">⋯</span>
-    </button>
+    <div class="presentation-folder-actions">
+     <button class="presentation-folder-head" data-open-presentation="${p.id}">
+      <span class="folder-icon">▣</span>
+      <span class="folder-name"><b>${esc(p.name)}</b><small>Presentación · ${ps.length} diapositivas</small></span>
+     </button>
+     <button class="presentation-rename-btn" data-rename-presentation="${p.id}" title="Cambiar nombre" aria-label="Cambiar nombre">✎</button>
+    </div>
    </div>`;
   }).join('')||'<p class="muted sidebar-empty">No hay presentaciones.</p>';
 
@@ -194,6 +213,12 @@ function renderLibraryList(){
    ${songFolders||'<div class="sidebar-empty-hint">Las canciones que agregues a esta presentación aparecerán aquí como carpetas, con sus diapositivas dentro.</div>'}`;
 
   items.querySelectorAll('[data-open-presentation]').forEach(b=>b.onclick=()=>switchPresentation(b.closest('[data-drop-presentation]').dataset.dropPresentation));
+  items.querySelectorAll('[data-rename-presentation]').forEach(b=>{
+   b.onclick=e=>{e.preventDefault();e.stopPropagation();renamePresentation(b.dataset.renamePresentation)};
+  });
+  items.querySelectorAll('[data-open-presentation]').forEach(b=>{
+   b.oncontextmenu=e=>{e.preventDefault();renamePresentation(b.closest('[data-drop-presentation]').dataset.dropPresentation)};
+  });
   items.querySelectorAll('[data-gslide]').forEach(b=>b.onclick=()=>{let i=slides.findIndex(s=>s.id===b.dataset.gslide);if(i>=0)selectSlide(i)});
   items.querySelectorAll('[data-songgroup]').forEach(b=>b.onclick=()=>{let i=slides.findIndex(s=>s.songGroupId===b.dataset.songgroup);if(i>=0)selectSlide(i)});
   items.querySelectorAll('[data-drop-presentation]').forEach(el=>{

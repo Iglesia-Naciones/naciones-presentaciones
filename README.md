@@ -44,3 +44,24 @@ Se conserva IndexedDB `naciones-presentaciones`, versión 2, con las tiendas de 
 
 ## Alcance de la validación
 Se comprobó la sintaxis JavaScript, que los IDs HTML sean únicos, que las referencias JS a elementos HTML existan y que los elementos principales de las funciones corregidas estén incluidos. No se ejecutó una prueba de navegador con hardware de proyección.
+
+
+## V7 — Renombrar presentaciones y scroll de diapositivas
+
+### Cambiar el nombre de una presentación
+- En el panel izquierdo, cada presentación tiene un botón de lápiz a la derecha.
+- Haz clic en el lápiz para escribir el nuevo nombre.
+- También puedes hacer clic derecho sobre el nombre de una presentación para abrir el mismo cambio de nombre.
+- El nombre nuevo se guarda en IndexedDB y se refleja en la biblioteca y en el selector de destino de canciones.
+- No se modifica el contenido ni se crea una presentación adicional.
+- No se permiten nombres vacíos ni nombres duplicados.
+
+### Scroll de la cuadrícula de diapositivas
+- El contenedor central de diapositivas ahora tiene altura limitada al espacio visible.
+- Cuando hay más diapositivas de las que caben, se desplaza la cuadrícula internamente con su propia barra de scroll.
+- La barra superior, el panel lateral, la bandeja de imágenes fijas y los controles inferiores permanecen en su lugar.
+- El panel de vista previa derecho tiene su propio desplazamiento si su contenido excede la altura disponible.
+- En pantallas pequeñas se conserva el diseño adaptable y se limita el alto del contenedor de diapositivas.
+
+## V7 — Instalación
+Reemplaza los archivos incluidos en este paquete, incluido `sw.js`, y conserva el `manifest.webmanifest` de tu repositorio. La clave de caché se actualizó para que el navegador detecte esta entrega. Después de publicar, recarga con Ctrl+F5.
