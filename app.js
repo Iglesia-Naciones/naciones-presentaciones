@@ -81,26 +81,14 @@ function sendState() {
     try { projector.postMessage(message, location.origin); } catch (_) {}
   }
 }
-
-/* Actualiza únicamente el borde de selección; no vuelve a crear las miniaturas. */
-function updateSlideSelection() {
-  const grid = $("slides-grid");
-  if (!grid) return;
-  grid.querySelectorAll(".slide-card").forEach(card => {
-    const selected = Number(card.dataset.index) === current;
-    card.classList.toggle("selected", selected);
-    card.setAttribute("aria-pressed", selected ? "true" : "false");
-  });
-}
 function selectSlide(index) {
   if (index < 0 || index >= slides.length) return;
   current = index;
   blackout = false;
-  updateSlideSelection();
+  renderSlides();
   renderPreview();
   sendState();
 }
-
 function showView(view) {
   document.querySelectorAll(".view").forEach(el => el.classList.remove("active"));
   const target = $("view-" + view); if (target) target.classList.add("active");
@@ -121,9 +109,9 @@ function renderSlides() {
     const data = getSlideData(slide);
     let thumb = "";
     if (data?.type === "song") thumb = `<div class="text-thumb">${esc(data.text.slice(0, 100))}</div>`;
-    else if (data?.type === "image") thumb = `<img src="${objectUrl(data.key, data.blob)}" alt="">`;
+    else if (data?.type === "image") thumb = `<img src="${objectUrl(data.key, data.blob)}">`;
     else if (data?.type === "video") thumb = `<div class="video-thumb">▶ VIDEO</div>`;
-    return `<button class="slide-card ${index === current ? "selected" : ""}" data-index="${index}" draggable="true" aria-pressed="${index === current ? "true" : "false"}">
+    return `<button class="slide-card ${index === current ? "selected" : ""}" data-index="${index}" draggable="true">
       <span class="slide-number">${index + 1}</span><div class="slide-thumb">${thumb || "Archivo no disponible"}</div>
       <div class="slide-meta">${esc(slideLabel(slide, data))}</div></button>`;
   }).join("");
@@ -139,20 +127,17 @@ function renderSlides() {
     card.addEventListener("dragleave", () => card.classList.remove("drag-over"));
     card.addEventListener("drop", event => {
       event.preventDefault(); card.classList.remove("drag-over");
-      const rawFrom = event.dataTransfer.getData("application/x-naciones-slide-index");
-      const from = Number(rawFrom);
-      if (rawFrom !== "" && !Number.isNaN(from)) {
+      const from = Number(event.dataTransfer.getData("application/x-naciones-slide-index"));
+      if (!Number.isNaN(from) && event.dataTransfer.getData("application/x-naciones-slide-index") !== "") {
         const to = Number(card.dataset.index);
         if (from !== to) {
-          const [moved] = slides.splice(from, 1);
-          slides.splice(to, 0, moved);
-          current = to;
-          renderSlides(); renderPreview(); sendState();
+          const [moved] = slides.splice(from, 1); slides.splice(to, 0, moved);
+          current = to; renderSlides(); renderPreview(); sendState();
         }
         return;
       }
       const mediaId = event.dataTransfer.getData("application/x-naciones-media-id");
-      if (mediaId) addMediaToPresentation(mediaId, Number(card.dataset.index));
+      if (mediaId) addMediaToPresentation(mediaId, to);
     });
   });
 }
@@ -165,103 +150,27 @@ function renderMediaInto(container, data, className = "") {
     video.className = className; video.muted = true; video.playsInline = true; container.appendChild(video);
   }
 }
-
-/*
- * La vista previa se prepara fuera del DOM visible. La imagen anterior permanece
- * en pantalla hasta que la nueva imagen se haya decodificado. Un contador evita
- * que una carga lenta sobrescriba una selección más reciente.
- */
-let previewRenderVersion = 0;
-async function renderPreview() {
+function renderPreview() {
   const data = activeData(), screen = $("preview-screen");
   if (!screen) return;
-
-  const renderVersion = ++previewRenderVersion;
   $("preview-position").textContent = current >= 0 ? `${current + 1} / ${slides.length}` : "— / —";
   $("preview-name").textContent = data?.title || data?.name || "Selecciona una diapositiva";
-
-  if (!data) {
-    screen.replaceChildren(Object.assign(document.createElement("span"), {
-      textContent: "Sin diapositiva seleccionada"
-    }));
-    return;
-  }
-
-  const nodes = [];
-  const waitForImage = async img => {
-    try {
-      if (img.decode) await img.decode();
-      else await new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-    } catch (_) {}
-  };
-  const waitForVideo = video => new Promise(resolve => {
-    if (video.readyState >= 2) return resolve();
-    video.addEventListener("loadeddata", resolve, { once: true });
-    video.addEventListener("error", resolve, { once: true });
-    setTimeout(resolve, 1200);
-    video.load();
-  });
-
+  screen.innerHTML = "";
+  if (!data) { screen.innerHTML = "<span>Sin diapositiva seleccionada</span>"; return; }
   if (data.type === "song") {
-    const bg = data.background;
-    if (bg.type === "image") {
-      const img = document.createElement("img");
-      img.className = "preview-background";
-      img.alt = "";
-      img.src = objectUrl(`bg-${bg.id}`, bg.blob);
-      nodes.push(img);
-      await waitForImage(img);
-    } else if (bg.type === "video") {
-      const video = document.createElement("video");
-      video.className = "preview-background";
-      video.src = objectUrl(`bg-${bg.id}`, bg.blob);
-      video.muted = true;
-      video.playsInline = true;
-      video.preload = "auto";
-      nodes.push(video);
-      await waitForVideo(video);
-      video.play().catch(() => {});
+    if (data.background.type === "image" || data.background.type === "video") {
+      renderMediaInto(screen, { ...data.background, key: `bg-${data.background.id}` }, "preview-background");
     }
-    const text = document.createElement("div");
-    text.className = "preview-song-text";
-    text.textContent = data.text || "";
-    nodes.push(text);
-  } else if (data.type === "image") {
-    const img = document.createElement("img");
-    img.className = "preview-media";
-    img.alt = data.title || data.name || "";
-    img.src = objectUrl(data.key || data.id, data.blob);
-    nodes.push(img);
-    await waitForImage(img);
-  } else if (data.type === "video") {
-    const video = document.createElement("video");
-    video.className = "preview-media";
-    video.src = objectUrl(data.key || data.id, data.blob);
-    video.muted = true;
-    video.playsInline = true;
-    video.preload = "auto";
-    nodes.push(video);
-    await waitForVideo(video);
-    video.play().catch(() => {});
-  }
-
-  if (renderVersion !== previewRenderVersion) return;
-  screen.replaceChildren(...nodes);
+    const text = document.createElement("div"); text.className = "preview-song-text"; text.textContent = data.text; screen.appendChild(text);
+  } else renderMediaInto(screen, data, "preview-media");
 }
-
 function addMediaToPresentation(id, insertAt = null) {
   const item = findMedia(id); if (!item) return;
   const slide = { mediaId: item.id, title: item.name };
   if (insertAt === null || insertAt === undefined) slides.push(slide);
   else slides.splice(insertAt, 0, slide);
-  const selectedIndex = insertAt === null || insertAt === undefined ? slides.length - 1 : insertAt;
-  renderSlides();
-  selectSlide(selectedIndex);
-  showView("presentacion");
-  toast("Agregado a la presentación");
+  selectSlide(insertAt === null || insertAt === undefined ? slides.length - 1 : insertAt);
+  showView("presentacion"); toast("Agregado a la presentación");
 }
 
 async function deleteMedia(id) {
@@ -276,7 +185,7 @@ async function deleteMedia(id) {
   toast("Archivo eliminado");
 }
 function makeMediaCard(item, isVideo = false) {
-  const preview = isVideo ? `<video src="${objectUrl(item.id, item.blob)}" muted></video>` : `<img src="${objectUrl(item.id, item.blob)}" alt="">`;
+  const preview = isVideo ? `<video src="${objectUrl(item.id, item.blob)}" muted></video>` : `<img src="${objectUrl(item.id, item.blob)}">`;
   return `<article class="media-card" draggable="true" data-media-card="${item.id}">
     <div class="media-preview">${preview}</div>
     <div class="media-details"><strong title="${esc(item.name)}">${esc(item.name)}</strong><small>${isVideo ? "Video" : "Imagen"} · ${(item.size / 1048576).toFixed(1)} MB</small></div>
@@ -315,17 +224,11 @@ function renderVideos() {
 function renderQuickImages() {
   const dock = $("quick-images"); if (!dock) return;
   const pinned = media.filter(item => item.type === "image" && item.pinned);
-  dock.innerHTML = pinned.length ? pinned.map(item => `<button class="quick-image" data-quick="${item.id}" title="${esc(item.name)}"><img src="${objectUrl(item.id, item.blob)}" alt=""><span>${esc(item.name)}</span></button>`).join("") :
+  dock.innerHTML = pinned.length ? pinned.map(item => `<button class="quick-image" data-quick="${item.id}" title="${esc(item.name)}"><img src="${objectUrl(item.id, item.blob)}"><span>${esc(item.name)}</span></button>`).join("") :
     '<span class="quick-empty">Todavía no hay imágenes fijadas. En Imágenes, selecciona “Fijar abajo” para crear tus accesos rápidos.</span>';
   dock.querySelectorAll("[data-quick]").forEach(button => button.onclick = () => {
     let index = slides.findIndex(slide => slide.mediaId === button.dataset.quick);
-    if (index < 0) {
-      const item = findMedia(button.dataset.quick);
-      if (!item) return;
-      slides.push({ mediaId: item.id, title: item.name });
-      index = slides.length - 1;
-      renderSlides();
-    }
+    if (index < 0) { const item = findMedia(button.dataset.quick); slides.push({ mediaId: item.id, title: item.name }); index = slides.length - 1; }
     selectSlide(index);
   });
 }
@@ -366,7 +269,7 @@ function renderSongs() {
       type: "song", title: `${song.title} · ${index + 1}`, text,
       backgroundId: song.backgroundId || null
     }));
-    if (parts.length) { renderSlides(); selectSlide(start); showView("presentacion"); }
+    if (parts.length) { selectSlide(start); showView("presentacion"); }
   });
 }
 
@@ -382,7 +285,7 @@ async function importFiles(fileList, expectedType, addToPresentation = false) {
   }
   if (!added) { toast("No encontré archivos compatibles. Usa PNG, JPG, WebP, MP4 o WebM."); return; }
   renderLibrary(); renderSlides(); renderPreview(); populateSongBackgrounds();
-  if (addToPresentation) { selectSlide(slides.length - 1); showView("presentacion"); }
+  if (addToPresentation) { current = slides.length - 1; selectSlide(current); showView("presentacion"); }
   toast(`${added} archivo(s) ${addToPresentation ? "agregados a la presentación" : "guardados en la biblioteca"}`);
 }
 function openProjector() {
@@ -400,7 +303,7 @@ function navigate(delta) {
 /* Ventana de proyección: capas separadas para que el fondo de canción no se reinicie al cambiar estrofa. */
 function initProjection() {
   document.body.innerHTML = '<main class="projection" id="projection"><div class="projection-background-layer" id="projection-background"></div><div class="projection-lyrics-layer" id="projection-lyrics"></div><div class="projection-message" id="projection-message">NACIONES PRESENTACIONES<br><small>Conectando con el operador…</small></div></main>';
-  let currentBackgroundKey = null, currentLyrics = null;
+  let currentBackgroundKey = null, currentLyrics = null, currentMediaNode = null, currentBgNode = null;
   const urls = new Map();
   function projectionUrl(key, blob) {
     if (!blob) return "";
@@ -424,7 +327,7 @@ function initProjection() {
     if (key === currentBackgroundKey) return;
     currentBackgroundKey = key;
     const layer = $("projection-background");
-    const node = document.createElement("div"); node.className = "projection-background-item";
+    let node = document.createElement("div"); node.className = "projection-background-item";
     if (type === "image") {
       const img = document.createElement("img"); img.src = projectionUrl(key, blob); node.appendChild(img);
     } else if (type === "video") {
