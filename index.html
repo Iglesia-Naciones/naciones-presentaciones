@@ -2,71 +2,95 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090d16"><title>Naciones Presentaciones</title>
-<link rel="stylesheet" href="./styles.css?v=2"><link rel="stylesheet" href="./fixes.css?v=2">
+<meta name="theme-color" content="#10151f"><title>Naciones Presentaciones</title>
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
-<div id="app" class="shell">
-<aside class="rail">
- <div class="brand"><b>N</b></div>
- <button class="railbtn active" data-tab="songs" title="Canciones">♫</button>
- <button class="railbtn" data-tab="library" title="Biblioteca">▧</button>
- <button class="railbtn" data-tab="lists" title="Listas">☷</button>
- <button class="railbtn" data-tab="settings" title="Ajustes">⚙</button>
- <div class="railbottom"><span class="dot"></span><button id="blackout" title="Pantalla negra">◐</button></div>
-</aside>
-<main class="workspace">
- <section class="pane pane-library">
-  <div class="tabs"><button class="tab active" data-left="songs">Canciones</button><button class="tab" data-left="lists">Listas</button><button class="tab" data-left="history">Historial</button></div>
-  <div class="panecontent">
-   <div id="left-songs" class="leftview">
-    <input id="song-search" class="search" placeholder="Buscar canciones">
-    <div class="toolbar"><button class="iconbtn" id="new-song">＋</button><button class="iconbtn" id="edit-song">✎</button><span class="muted">Ordenado por: <select id="song-sort"><option value="recent">Anteriores</option><option value="az">Nombre A-Z</option></select></span></div>
-    <div id="song-library" class="song-library"></div>
+<div id="app" class="app">
+<header class="topbar">
+ <div class="brand"><span class="brandmark">N</span><span><b>NACIONES</b><small>PRESENTACIONES</small></span></div>
+ <nav class="mainnav">
+  <button class="nav active" data-view="show">▦ <span>Presentar</span></button>
+  <button class="nav" data-view="library">▤ <span>Biblioteca</span></button>
+  <button class="nav" data-view="songs">♫ <span>Canciones</span></button>
+  <button class="nav" data-view="editor">✎ <span>Editor</span></button>
+  <button class="nav" data-view="bible">▣ <span>Biblia</span></button>
+ </nav>
+ <div class="topright"><span class="online"><i></i> Guardado local</span><button class="btn" id="open-stage">Escenario ↗</button><button class="btn primary" id="open-audience">Proyección ↗</button></div>
+</header>
+<main>
+<section class="view active" id="view-show">
+ <div class="show-grid">
+  <aside class="panel left-panel">
+   <div class="panel-title"><div><b>Biblioteca</b><small>Contenido de tu equipo</small></div><button class="iconbtn" id="new-presentation" title="Nueva presentación">＋</button></div>
+   <div class="library-tree">
+    <button class="treeitem active" data-library="presentations">▣ Presentaciones <span id="presentation-count">0</span></button>
+    <button class="treeitem" data-library="songs">♫ Canciones <span id="song-count">0</span></button>
+    <button class="treeitem" data-library="media">▧ Medios <span id="media-count">0</span></button>
+    <button class="treeitem" data-library="playlists">☷ Listas de servicio</button>
    </div>
-   <div id="left-lists" class="leftview hidden"><div class="toolbar"><b>Listas de reproducción</b><button class="iconbtn" id="new-list">＋</button></div><div id="lists-list"></div></div>
-   <div id="left-history" class="leftview hidden"><div class="toolbar"><b>Historial reciente</b></div><div id="history-list"></div></div>
-   <div id="left-library" class="leftview hidden"><div class="toolbar"><b>Biblioteca multimedia</b><button class="btn small" id="import-media">Importar</button></div><div id="media-library"></div></div>
-   <div id="left-settings" class="leftview hidden"><b>Preferencias</b><p class="muted">Configuración de la plataforma</p><button class="btn" id="export-backup">Exportar respaldo</button><label class="btn filelabel">Importar respaldo<input id="import-backup" type="file" accept="application/json"></label></div>
-  </div>
- </section>
- <section class="pane pane-lyrics">
-  <div class="panehead"><div><b id="editor-heading">Letras</b><small id="editor-sub">Selecciona una canción</small></div><button class="iconbtn" id="save-song">✓</button></div>
-  <div id="lyrics-editor" class="lyrics-editor"><div class="empty">Selecciona una canción para editar sus letras.</div></div>
-  <div class="editor-actions"><button class="btn primary" id="add-verse">＋ Agregar sección</button><button class="btn" id="add-to-show">Agregar a presentación →</button></div>
- </section>
- <section class="pane pane-background">
-  <div class="tabs"><button class="tab active" data-bg="backgrounds">Fondos</button><button class="tab" data-bg="styles">Estilos</button><button class="tab" data-bg="library">Biblioteca</button></div>
-  <div class="panecontent">
-   <div id="bg-backgrounds" class="bgview">
-    <div class="dropbox" id="background-drop">⇧ Arrastra imágenes o videos aquí o <button id="choose-background">elige archivos</button></div>
-    <div id="background-grid" class="background-grid"></div>
-    <p class="muted">El fondo seleccionado se mantiene durante toda la canción.</p>
-    <label class="field">Visibilidad del fondo <output id="opacity-value">100%</output><input id="bg-opacity" type="range" min="0" max="100" value="100"></label>
-    <div class="two"><label class="toggle">Zoom <input id="zoom" type="checkbox"></label><label class="toggle">Partículas <input id="particles" type="checkbox"></label></div>
-    <label class="field">Transición de letras <output id="lyrics-ms">500 ms</output><select id="lyrics-transition"><option value="fade">Fade</option><option value="none">Ninguna</option></select><input id="lyrics-duration" type="range" min="0" max="2000" step="50" value="500"></label>
-    <label class="field">Transición de fondo <output id="background-ms">500 ms</output><select id="background-transition"><option value="fade">Fade</option><option value="none">Ninguna</option></select><input id="background-duration" type="range" min="0" max="2000" step="50" value="500"></label>
-   </div>
-   <div id="bg-styles" class="bgview hidden">
-    <label class="field">Tipografía<select id="font-family"><option value="Montserrat">Montserrat</option><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Roboto">Roboto</option></select></label>
-    <label class="field">Tamaño <output id="font-size-value">5vw</output><input id="font-size" type="range" min="2" max="9" step=".25" value="5"></label>
-    <label class="field">Color de letra<input id="font-color" type="color" value="#ffffff"></label>
-    <label class="field">Alineación<select id="text-align"><option value="center">Centrada</option><option value="left">Izquierda</option><option value="right">Derecha</option></select></label>
-    <label class="field">Posición vertical<select id="text-position"><option value="center">Centro</option><option value="start">Arriba</option><option value="end">Abajo</option></select></label>
-    <label class="toggle">Sombra de texto <input id="text-shadow" type="checkbox" checked></label>
-   </div>
-   <div id="bg-library" class="bgview hidden"><div class="toolbar"><b>Medios disponibles</b><button class="btn small" id="choose-background-2">＋ Importar</button></div><div id="background-library"></div></div>
-  </div>
- </section>
- <section class="pane pane-preview">
-  <div class="panehead"><div><b>Vista previa</b><small>Salida de programa · Full HD 1920×1080</small></div><button class="btn small" id="open-projector">Abrir proyección ↗</button></div>
-  <div class="preview-wrap"><div id="preview" class="preview"><span class="muted">Selecciona una diapositiva</span></div></div>
-  <div class="preview-controls"><button class="btn" id="prev">←</button><span id="position">0 / 0</span><button class="btn" id="next">→</button></div>
-  <div class="quick"><b>Acciones rápidas</b><button class="quickbtn" id="quick-black">Pasar a negro <kbd>F3</kbd></button><button class="quickbtn" id="send-logo">Enviar logotipo <kbd>F4</kbd></button><button class="quickbtn" id="clear-text">Limpiar texto <kbd>F5</kbd></button><button class="quickbtn" id="preach-mode">Modo prédica <kbd>F6</kbd></button></div>
-  <div class="showbar"><div id="current-label">Sin presentación</div><button class="btn" id="add-slide">＋ Diapositiva</button><button class="btn primary" id="start-show">Comenzar</button><button class="btn" id="show-up">⌃</button><button class="btn" id="show-down">⌄</button><button class="btn" id="remove-slide">✕</button></div>
- </section>
+   <div class="subhead"><b id="library-heading">Presentaciones</b><button class="iconbtn" id="add-library-item">＋</button></div>
+   <input id="library-search" class="search" placeholder="Buscar en biblioteca…">
+   <div id="library-items" class="library-items"></div>
+   <div class="panel-foot"><span class="status-dot"></span> Biblioteca local <button id="backup-btn" class="textbtn">Respaldo</button></div>
+  </aside>
+  <section class="panel center-panel">
+   <div class="panel-title"><div><b id="current-title">Presentación</b><small id="current-subtitle">Selecciona contenido de la biblioteca</small></div><div class="inline-actions"><button class="btn small" id="add-slide">＋ Diapositiva</button><button class="btn small" id="save-presentation">Guardar</button></div></div>
+   <div class="slide-toolbar"><span id="slide-count">0 diapositivas</span><span class="muted">Arrastra para reordenar · selecciona para editar</span><div class="spacer"></div><button class="iconbtn" id="duplicate-slide" title="Duplicar">▢</button><button class="iconbtn danger" id="delete-slide" title="Eliminar">×</button></div>
+   <div id="slide-grid" class="slide-grid"><div class="empty-state"><b>Tu presentación está vacía</b><p>Agrega una diapositiva, una canción o un archivo multimedia.</p><button class="btn primary" id="empty-add">＋ Crear diapositiva</button></div></div>
+   <div class="bottom-controls"><button class="btn" id="prev-slide">← Anterior</button><span id="slide-position">0 / 0</span><button class="btn" id="next-slide">Siguiente →</button><div class="spacer"></div><button class="btn" id="blackout">◐ Pantalla negra</button><button class="btn" id="clear-output">Limpiar salida</button><button class="btn primary" id="go-live">ENVIAR A PROYECCIÓN</button></div>
+  </section>
+  <aside class="right-stack">
+   <section class="panel preview-panel">
+    <div class="panel-title"><div><b>Vista previa</b><small>Salida de audiencia</small></div><span class="live-indicator"><i></i> LISTA</span></div>
+    <div class="preview-frame"><div id="operator-preview" class="screen"><span>Sin diapositiva</span></div></div>
+    <div class="preview-meta"><span id="preview-label">Selecciona una diapositiva</span><span>16:9</span></div>
+   </section>
+   <section class="panel quick-panel">
+    <div class="panel-title"><div><b>Acciones rápidas</b><small>Controles de proyección</small></div></div>
+    <div class="quick-grid"><button id="quick-black">◐<span>Pantalla negra</span><kbd>B</kbd></button><button id="quick-clear">⌫<span>Limpiar</span><kbd>Esc</kbd></button><button id="quick-logo">N<span>Logotipo</span><kbd>F4</kbd></button><button id="quick-preach">▤<span>Modo prédica</span><kbd>F6</kbd></button></div>
+   </section>
+   <section class="panel timer-panel"><div class="panel-title"><b>Temporizador</b><button class="iconbtn" id="timer-reset">↻</button></div><div class="timer"><span id="timer-display">00:00</span><div><button class="btn small" id="timer-start">Iniciar</button><button class="btn small" id="timer-stop">Pausar</button></div></div><div class="timer-set"><input id="timer-minutes" type="number" min="0" max="999" value="10"><span>minutos</span><button class="btn small" id="timer-set">Aplicar</button></div></section>
+  </aside>
+ </div>
+</section>
+
+<section class="view" id="view-library">
+ <div class="pagehead"><div><h1>Biblioteca multimedia</h1><p>Organiza imágenes, videos y audio para tus presentaciones.</p></div><button class="btn primary" id="import-media">＋ Importar archivos</button></div>
+ <div class="panel"><div class="library-filters"><input id="media-search" class="search" placeholder="Buscar archivos…"><select id="media-filter"><option value="all">Todos los medios</option><option value="image">Imágenes</option><option value="video">Videos</option><option value="audio">Audio</option></select></div><div id="media-cards" class="media-cards"></div><div id="media-empty" class="empty-state"><b>Tu biblioteca está vacía</b><p>Importa imágenes, videos o audio desde tu equipo.</p></div></div>
+</section>
+
+<section class="view" id="view-songs">
+ <div class="pagehead"><div><h1>Cancionero</h1><p>Guarda canciones y divide sus letras en diapositivas.</p></div><button class="btn primary" id="create-song">＋ Nueva canción</button></div>
+ <div class="songs-layout"><div class="panel"><div class="panel-title"><b>Canciones guardadas</b></div><input id="song-search" class="search m-12" placeholder="Buscar canción…"><div id="song-list" class="song-list"></div></div>
+ <div class="panel song-edit"><div class="panel-title"><div><b id="song-editor-title">Editor de canción</b><small>Una sección por diapositiva</small></div><button class="btn small primary" id="save-song">Guardar</button></div>
+ <label class="field">Nombre<input id="song-name" placeholder="Nombre de la canción"></label><label class="field">Artista / autor<input id="song-artist" placeholder="Artista (opcional)"></label>
+ <label class="field">Letra<textarea id="song-lyrics" rows="14" placeholder="Escribe una sección por bloque. Separa cada diapositiva con una línea en blanco."></textarea></label>
+ <label class="field">Fondo predeterminado<select id="song-background"><option value="">Negro / sin fondo</option></select></label><button class="btn primary" id="song-to-show">Agregar canción a presentación →</button></div></div>
+</section>
+
+<section class="view" id="view-editor">
+ <div class="pagehead"><div><h1>Editor de diapositivas</h1><p>Diseña textos, fondos y estilos sin salir de la presentación.</p></div><button class="btn primary" id="editor-new">＋ Nueva diapositiva</button></div>
+ <div class="editor-layout"><div class="panel editor-form">
+  <label class="field">Texto de la diapositiva<textarea id="slide-text" rows="7" placeholder="Escribe el texto que quieres proyectar…"></textarea></label>
+  <label class="field">Tipo de contenido<select id="slide-kind"><option value="text">Texto</option><option value="image">Imagen</option><option value="video">Video</option></select></label>
+  <label class="field">Fondo<select id="slide-background"><option value="">Negro / ninguno</option></select></label>
+  <div class="two-fields"><label class="field">Tamaño<input id="slide-font-size" type="range" min="2" max="10" step=".25" value="5"></label><label class="field">Color<input id="slide-color" type="color" value="#ffffff"></label></div>
+  <div class="two-fields"><label class="field">Alineación<select id="slide-align"><option value="center">Centro</option><option value="left">Izquierda</option><option value="right">Derecha</option></select></label><label class="field">Posición<select id="slide-position"><option value="center">Centro</option><option value="top">Arriba</option><option value="bottom">Abajo</option></select></label></div>
+  <label class="toggle"><span>Sombra de texto</span><input id="slide-shadow" type="checkbox" checked></label>
+  <button class="btn primary" id="apply-slide">Aplicar cambios</button>
+ </div><div class="panel editor-preview"><div class="panel-title"><b>Vista de diseño</b></div><div class="preview-frame"><div id="editor-preview" class="screen"><span>Vista previa del diseño</span></div></div></div></div>
+</section>
+
+<section class="view" id="view-bible">
+ <div class="pagehead"><div><h1>Biblioteca bíblica</h1><p>Prepara pasajes para proyectarlos. Puedes pegar el texto de la versión autorizada que utilicen.</p></div></div>
+ <div class="panel bible-panel"><div class="two-fields"><label class="field">Referencia<input id="bible-reference" placeholder="Ej. Juan 3:16"></label><label class="field">Versión<input id="bible-version" placeholder="Ej. RVR1960"></label></div><label class="field">Texto del pasaje<textarea id="bible-text" rows="8" placeholder="Pega aquí el texto del pasaje bíblico…"></textarea></label><button class="btn primary" id="bible-add">Agregar pasaje a presentación</button><p class="muted">La aplicación no descarga traducciones bíblicas ni incluye textos con derechos reservados. El operador introduce el texto que tiene permiso de utilizar.</p></div>
+</section>
 </main>
 </div>
-<input id="media-input" type="file" accept="image/*,video/mp4,video/webm" multiple hidden>
-<div id="toast" class="toast"></div><script src="./app.js?v=2"></script>
+
+<div id="modal" class="modal hidden"><div class="modal-card"><div class="panel-title"><b id="modal-title">Nueva presentación</b><button class="iconbtn" id="modal-close">×</button></div><div id="modal-body"></div></div></div>
+<input id="file-input" type="file" accept="image/*,video/*,audio/*" multiple hidden>
+<div id="toast" class="toast"></div>
+<script src="app.js?v=3"></script>
 </body></html>

@@ -1,19 +1,26 @@
-NACIONES PRESENTACIONES — TRANSFORMACIÓN COMPLETA
+NACIONES PRESENTACIONES PRO — INSTALACIÓN
 
-1. Descarga y descomprime este ZIP.
-2. Sube/reemplaza index.html, app.js, styles.css, fixes.css y README.md en la raíz de tu repositorio.
-3. Conserva manifest.webmanifest y sw.js actuales.
-5. Espera a que GitHub Pages publique y recarga con Ctrl+F5.
+ARCHIVOS:
+- index.html
+- styles.css
+- app.js
+- sw.js
+- README.md
 
-PROTECCIÓN DE DATOS:
-- Se conserva IndexedDB: naciones-presentaciones, versión 1.
-- Se mantienen las tiendas media y songs.
-- NO borres los datos del sitio ni el almacenamiento del navegador.
-- Antes de actualizar, exporta respaldo desde Preferencias.
+PASOS:
+1. Descarga y descomprime el ZIP.
+2. Sube TODOS los archivos a la raíz de tu repositorio GitHub Pages y acepta reemplazar.
+3. Espera a que termine el despliegue.
+4. Abre el sitio en HTTPS, recarga con Ctrl+F5.
+5. Permite ventanas emergentes.
+6. Pulsa “Proyección” y mueve esa ventana a la pantalla del público. Pulsa F11 para pantalla completa.
+7. Pulsa “Escenario” para abrir una ventana independiente para monitores de escenario.
 
-NOTA:
-Esta es una primera entrega de la nueva arquitectura. Prueba las funciones con una presentación de ensayo antes de usarla en un servicio en vivo. La proyección requiere permitir ventanas emergentes y usar HTTPS.
+DATOS:
+- La base `naciones-presentaciones` se actualiza de versión 1 a 2.
+- Conserva las tiendas antiguas de media y songs; añade presentations y playlists.
+- NO borres los datos del sitio ni IndexedDB.
+- Descarga un respaldo desde “Respaldo” antes de actualizar.
 
-FUNCIÓN NUEVA V3:
-- El botón “＋ Diapositiva” permite crear una diapositiva de texto, importar imagen/video directamente a la presentación o agregar la canción seleccionada.
-- Al importar medios desde el botón de agregar diapositiva, los archivos nuevos se insertan automáticamente en la presentación.
+PRUEBA:
+Antes de usar en vivo, prueba importar archivos, guardar una canción, crear una presentación, cambiar diapositivas, pantalla negra, proyección y escenario.
