@@ -1,20 +1,26 @@
-# Naciones Presentaciones Pro V3 — Organización por carpetas
+# Naciones Presentaciones Pro V4
 
-## Cambios solicitados
-1. **Arrastrar imágenes directamente a la presentación:** desde el explorador de archivos arrastra PNG, JPG, WEBP o videos sobre la carpeta de presentación (por ejemplo, “Equipo Plantación”) en el panel izquierdo. Los archivos se importan y se insertan inmediatamente como diapositivas en esa presentación. Ya no necesitas pasar por la biblioteca Medios.
-2. **Canciones como carpetas dentro de la presentación:** al elegir una canción en Canciones guardadas, sus estrofas se agregan a la presentación activa como un grupo identificado por el nombre de la canción. En el panel izquierdo, debajo de la presentación, aparece la carpeta de esa canción y debajo las diapositivas de sus letras.
-3. Puedes seleccionar una diapositiva desde esa carpeta para editarla o proyectarla.
-4. Se conserva Fade y sus duraciones de la V2.
+## Cambios de esta versión
+- Se conserva el modelo de presentaciones independientes: “Presentación principal” y “Equipo Plantación” son proyectos distintos, cada uno con sus propias diapositivas.
+- Las entradas vacías que tengan el mismo nombre que una canción guardada se ocultan del listado de Presentaciones para que canciones antiguas creadas por error no aparezcan como proyectos separados. Los registros no se borran.
+- Se quitó la franja superior grande del panel central. Agregar diapositiva y Guardar se movieron a la barra compacta.
+- Se puede arrastrar PNG, JPG, WebP, MP4 y WebM desde el escritorio directamente a cualquier zona del panel central. Los archivos se guardan y se agregan como diapositivas a la presentación actualmente seleccionada.
+- También se puede arrastrar archivos directamente sobre una carpeta de presentación en el panel izquierdo: al soltarlos se abre esa presentación y se agregan ahí.
+- Las canciones se agrupan como carpetas dentro de la presentación activa. Cada sección de letra aparece como una diapositiva hija.
+- El editor de canciones separa por líneas en blanco reales: cada bloque de texto separado por una o más líneas vacías se convierte en una diapositiva independiente.
+- Se puede cargar el logotipo real haciendo clic en la N de la esquina superior izquierda. Selecciona `Naciones logo.png`; se guarda en la biblioteca local de ese navegador y sustituye la N.
+- Se conserva el efecto Fade y sus duraciones configurables.
 
-## Cómo usarlo
-- En Presentar, abre la categoría Presentaciones.
-- Selecciona “Equipo Plantación”.
-- Para fotos: arrastra uno o varios archivos desde tu computadora y suéltalos directamente sobre la tarjeta “Equipo Plantación”. Verás que se agregan como diapositivas.
-- Para letras: abre Canciones guardadas, haz clic en “Es Él” o “Envíame”. La canción aparecerá como carpeta debajo de “Equipo Plantación”, con sus secciones de letra dentro.
-- Haz clic en una sección para seleccionarla en la cuadrícula central.
+## Cómo usar
+1. Crea o selecciona `Equipo Plantación` en Presentaciones. Será independiente de `Presentación principal`.
+2. Arrastra archivos de imagen/video al área grande central para agregarlos a la presentación seleccionada.
+3. También puedes soltar archivos directamente sobre la carpeta `Equipo Plantación` en el panel izquierdo.
+4. Para agregar canciones, abre Canciones y elige una canción. Sus bloques de letra aparecerán como una carpeta dentro de la presentación activa.
+5. En la letra, deja una línea en blanco entre diapositivas.
+6. Haz clic en la N superior izquierda para cargar el PNG del logo.
 
 ## Instalación
-Reemplaza los seis archivos del ZIP en la raíz del repositorio GitHub Pages. Espera el despliegue y recarga el sitio con Ctrl+F5. Permite ventanas emergentes para la proyección.
+Reemplaza `index.html`, `styles.css`, `app.js`, `sw.js`, `README.md` e `INSTRUCCIONES.txt` con los incluidos en el ZIP. Espera al despliegue y recarga con Ctrl+F5.
 
 ## Datos
-Se mantiene la base IndexedDB `naciones-presentaciones` versión 2. No borres los datos del navegador. Descarga un respaldo antes de actualizar.
+Se conserva IndexedDB `naciones-presentaciones` versión 2. No borres los datos del sitio. El PNG seleccionado como logo se guarda en la base local del navegador. Haz un respaldo antes de actualizar.

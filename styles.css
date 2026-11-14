@@ -37,3 +37,14 @@ body:has(.output){overflow:hidden;background:#000}
 .tree-slide{border:0;background:transparent;color:#8fa4ba;text-align:left;font-size:8px;padding:5px 4px;border-radius:4px}
 .tree-slide:hover{background:#20384a;color:#fff}
 .presentation-folder.folder-drop-active{border:2px dashed #39cba5;background:#174437;box-shadow:0 0 0 3px #39cba522}
+
+/* V4 refinements: drop directly into the presentation and place church logo */
+.brandmark{border:0;color:#fff;cursor:pointer;overflow:hidden;position:relative}
+.brandmark.has-logo{background:transparent;border:1px solid #34465d;padding:0}
+.brandmark img{width:100%;height:100%;display:block;object-fit:contain;border-radius:8px}
+.center-panel{position:relative}
+.center-panel.file-drop-active::after{content:"SUELTA AQUÍ TUS IMÁGENES O VIDEOS PARA AGREGARLOS A ESTA PRESENTACIÓN";position:absolute;inset:52px 12px 62px;z-index:8;border:2px dashed #37cba5;border-radius:12px;background:#0d2c27e8;display:grid;place-items:center;text-align:center;padding:25px;color:#d9fff5;font-size:clamp(12px,1.3vw,18px);font-weight:700;letter-spacing:.04em;pointer-events:none}
+.center-panel .slide-toolbar{min-height:44px}
+.center-panel .slide-grid{min-height:420px}
+
+.brandmark{flex:none}

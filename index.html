@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#10151f"><title>Naciones Presentaciones</title>
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
 <div id="app" class="app">
 <header class="topbar">
- <div class="brand"><span class="brandmark">N</span><span><b>NACIONES</b><small>PRESENTACIONES</small></span></div>
+ <div class="brand"><button class="brandmark" id="brand-trigger" type="button" title="Cargar logotipo de Naciones">N</button><span><b>NACIONES</b><small>PRESENTACIONES</small></span></div>
  <nav class="mainnav">
   <button class="nav active" data-view="show">▦ <span>Presentar</span></button>
   <button class="nav" data-view="songs">♫ <span>Canciones</span></button>
@@ -32,8 +32,7 @@
    <div class="panel-foot"><span class="status-dot"></span> Biblioteca local <button id="backup-btn" class="textbtn">Respaldo</button></div>
   </aside>
   <section class="panel center-panel">
-   <div class="panel-title"><div><b id="current-title">Presentación</b><small id="current-subtitle">Selecciona contenido de la biblioteca</small></div><div class="inline-actions"><button class="btn small" id="add-slide">＋ Diapositiva</button><button class="btn small" id="save-presentation">Guardar</button></div></div>
-   <div class="slide-toolbar"><span id="slide-count">0 diapositivas</span><span class="muted">Arrastra para reordenar · selecciona para editar</span><div class="spacer"></div><button class="iconbtn" id="duplicate-slide" title="Duplicar">▢</button><button class="iconbtn danger" id="delete-slide" title="Eliminar">×</button></div>
+   <div class="slide-toolbar"><span id="slide-count">0 diapositivas</span><span class="muted">Arrastra archivos aquí · suelta para agregarlos</span><div class="spacer"></div><button class="btn small" id="add-slide">＋ Diapositiva</button><button class="btn small" id="save-presentation">Guardar</button><button class="iconbtn" id="duplicate-slide" title="Duplicar">▢</button><button class="iconbtn danger" id="delete-slide" title="Eliminar">×</button></div>
    <div id="slide-grid" class="slide-grid"><div class="empty-state"><b>Tu presentación está vacía</b><p>Agrega una diapositiva, una canción o un archivo multimedia.</p><button class="btn primary" id="empty-add">＋ Crear diapositiva</button></div></div>
    <div class="bottom-controls"><button class="btn" id="prev-slide">← Anterior</button><span id="slide-position">0 / 0</span><button class="btn" id="next-slide">Siguiente →</button><div class="spacer"></div><button class="btn" id="blackout">◐ Pantalla negra</button><button class="btn" id="clear-output">Limpiar salida</button><button class="btn primary" id="go-live">ENVIAR A PROYECCIÓN</button></div>
   </section>
@@ -92,6 +91,7 @@
 
 <div id="modal" class="modal hidden"><div class="modal-card"><div class="panel-title"><b id="modal-title">Nueva presentación</b><button class="iconbtn" id="modal-close">×</button></div><div id="modal-body"></div></div></div>
 <input id="file-input" type="file" accept="image/*,video/*,audio/*" multiple hidden>
+<input id="logo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
 <div id="toast" class="toast"></div>
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body></html>

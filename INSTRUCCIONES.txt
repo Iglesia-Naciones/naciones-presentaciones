@@ -1,23 +1,38 @@
-NACIONES PRESENTACIONES PRO V3 — INSTALACIÓN Y USO
+NACIONES PRESENTACIONES PRO V4 — INSTALACIÓN
 
-INSTALACIÓN
 1. Descomprime el ZIP.
-2. Reemplaza los seis archivos en la raíz de GitHub Pages.
-3. Espera a que publique y recarga con Ctrl+F5.
-4. NO borres los datos del sitio ni IndexedDB.
+2. Reemplaza los archivos de la raíz de GitHub Pages por los seis archivos incluidos.
+3. Espera a que GitHub Pages publique y recarga con Ctrl+F5.
+4. No borres los datos del navegador ni IndexedDB.
 
-AGREGAR FOTOS DIRECTAMENTE A “EQUIPO PLANTACIÓN”
-1. Abre Presentar.
-2. En el panel izquierdo, selecciona Presentaciones.
-3. Arrastra los archivos PNG/JPG/WEBP/videos desde tu computadora.
-4. Suéltalos directamente encima de la tarjeta “Equipo Plantación”.
-5. Se guardan en la biblioteca local y se agregan inmediatamente como diapositivas de esa presentación.
+PRESENTACIONES INDEPENDIENTES
+- “Presentación principal” y “Equipo Plantación” son presentaciones separadas.
+- Para crear otra, pulsa el + junto al título de Presentaciones.
+- Selecciona la carpeta que quieres editar antes de agregar imágenes o canciones.
 
-AGREGAR CANCIONES COMO CARPETAS
-1. Abre Canciones guardadas en el panel izquierdo.
-2. Haz clic en una canción, por ejemplo “Es Él”.
-3. Regresa a Presentaciones: debajo de “Equipo Plantación” aparece una carpeta con el nombre de la canción.
-4. Dentro de esa carpeta aparecen sus diapositivas de letra.
-5. Haz clic en cualquier sección para seleccionarla.
+AGREGAR IMÁGENES Y VIDEOS
+- Arrastra PNG/JPG/WebP/MP4/WebM desde tu computadora y suéltalos en el área central grande.
+- También puedes arrastrarlos directamente encima de la carpeta de presentación en el panel izquierdo.
+- Se guardan localmente y se insertan como diapositivas en esa presentación. Ya no necesitas subirlos primero desde la sección Medios.
 
-La transición Fade y sus controles se conservan.
+CANCIONES EN CARPETAS
+- Abre Canciones en la barra superior.
+- Crea o selecciona una canción.
+- Escribe los bloques de letra separados por una línea en blanco.
+- Ejemplo:
+  ESTOY PREPARANDO EL CAMINO
+  ENDEREZANDO LAS VEREDAS
+
+  Y CADA VEZ MÁS DISMINUYENDO
+  PORQUE IMPORTA QUE ÉL CREZCA
+
+- Pulsa Guardar.
+- Vuelve a Presentar y selecciona la canción desde Canciones del panel lateral. Sus bloques se agregan como una carpeta y cada bloque como diapositiva.
+
+LOGOTIPO
+- Haz clic en la N de la esquina superior izquierda.
+- Selecciona `Naciones logo.png`.
+- Se guarda dentro de la biblioteca local de ese navegador y reemplaza la N.
+- Para usar el logo en otra computadora, hay que cargar el PNG también en ese equipo.
+
+El Fade y el control de duración se conservan.
