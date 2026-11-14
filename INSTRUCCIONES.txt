@@ -1,45 +1,62 @@
-NACIONES PRESENTACIONES PRO V4 — INSTALACIÓN
+NACIONES PRESENTACIONES PRO V5 — INSTALACIÓN Y USO
 
+INSTALACIÓN
 1. Descomprime el ZIP.
-2. Reemplaza los archivos de la raíz de GitHub Pages por los seis archivos incluidos.
-3. Espera a que GitHub Pages publique y recarga con Ctrl+F5.
-4. No borres los datos del navegador ni IndexedDB.
+2. Reemplaza en la raíz de tu repositorio los archivos incluidos:
+   index.html, styles.css, app.js, sw.js, README.md, INSTRUCCIONES.txt y los archivos PNG/ICO de identidad.
+3. Conserva el archivo manifest.webmanifest que ya tienes en GitHub.
+4. Espera a que GitHub Pages publique y recarga con Ctrl+F5.
+5. No borres los datos del sitio ni IndexedDB.
 
-PRESENTACIONES INDEPENDIENTES
-- “Presentación principal” y “Equipo Plantación” son presentaciones separadas.
-- Para crear otra, pulsa el + junto al título de Presentaciones.
-- Selecciona la carpeta que quieres editar antes de agregar imágenes o canciones.
+AGREGAR UNA CANCIÓN A UNA PRESENTACIÓN
+Opción A: clic derecho
+1. En Presentar, elige Canciones en el panel izquierdo, o abre la pestaña Canciones.
+2. Haz clic derecho en la canción.
+3. Selecciona “Agregar a”.
+4. Elige la presentación de destino.
 
-AGREGAR IMÁGENES Y VIDEOS
-- Arrastra PNG/JPG/WebP/MP4/WebM desde tu computadora y suéltalos en el área central grande.
-- También puedes arrastrarlos directamente encima de la carpeta de presentación en el panel izquierdo.
-- Se guardan localmente y se insertan como diapositivas en esa presentación. Ya no necesitas subirlos primero desde la sección Medios.
+Opción B: desde el editor de canciones
+1. Abre Canciones y selecciona una canción.
+2. Edita la letra y el estilo.
+3. En “Agregar a presentación”, elige el proyecto.
+4. Pulsa “Agregar canción a presentación”.
 
-CANCIONES EN CARPETAS
-- Abre Canciones en la barra superior.
-- Crea o selecciona una canción.
-- Escribe los bloques de letra separados por una línea en blanco.
+DIAPOSITIVAS DE LETRA
+- Cada bloque separado por una línea en blanco crea una diapositiva.
 - Ejemplo:
+
   ESTOY PREPARANDO EL CAMINO
   ENDEREZANDO LAS VEREDAS
 
   Y CADA VEZ MÁS DISMINUYENDO
   PORQUE IMPORTA QUE ÉL CREZCA
 
-- Pulsa Guardar.
-- Vuelve a Presentar y selecciona la canción desde Canciones del panel lateral. Sus bloques se agregan como una carpeta y cada bloque como diapositiva.
+- El ejemplo crea dos diapositivas.
 
-LOGOTIPO
-- Haz clic en la N de la esquina superior izquierda.
-- Selecciona `Naciones logo.png`.
-- Se guarda dentro de la biblioteca local de ese navegador y reemplaza la N.
-- Para usar el logo en otra computadora, hay que cargar el PNG también en ese equipo.
+EDITOR DE LETRAS
+- Ajusta tipografía, tamaño, color, alineación, posición, márgenes, interlineado y sombra.
+- Asigna un fondo de imagen/video desde el selector.
+- Usa “Cargar imagen o video” para importar un fondo nuevo.
+- Al guardar, se actualizan las diapositivas de esa canción que ya estén agregadas en presentaciones.
 
-El Fade y el control de duración se conservan.
+IMÁGENES FIJAS
+1. En el panel izquierdo, selecciona Medios.
+2. Pulsa ☆ junto a una imagen para fijarla.
+3. Aparecerá en la bandeja “Imágenes fijas” debajo de la cuadrícula.
+4. Haz clic en su miniatura para insertarla en la presentación.
+5. Por defecto, los tres primeros accesos fijos se activan con F7, F8 y F9.
 
-IDENTIDAD VISUAL
-- `naciones-logo.png` es el logo horizontal que aparece en la cabecera del programa.
-- `isotipo.png` es el isotipo original.
-- `favicon-32.png` y `favicon.ico` son los iconos de la pestaña del navegador.
-- `apple-touch-icon.png` se usa en accesos directos compatibles.
-No tienes que subir el logo desde la aplicación: estos recursos ya están incluidos en el ZIP.
+CONFIGURACIÓN
+- Abre Configuración en la barra superior.
+- Haz clic en un botón de atajo y presiona la tecla que quieras asignar.
+- Guarda la configuración.
+- También puedes cambiar transición predeterminada, duración, envío automático y confirmación al limpiar.
+
+LOGO E ISOTIPO
+- `naciones-logo.png` se muestra en la cabecera, sin el texto PRESENTACIONES debajo.
+- `isotipo.png`, `favicon-32.png`, `favicon.ico` y `apple-touch-icon.png` se usan para la pestaña y accesos compatibles.
+
+RESPALDO
+- Exporta un respaldo antes de reemplazar archivos.
+- La base local naciones-presentaciones versión 2 se conserva.
+- NO borres los datos del navegador ni IndexedDB.

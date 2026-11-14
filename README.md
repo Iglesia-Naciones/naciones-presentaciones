@@ -1,29 +1,73 @@
-# Naciones Presentaciones Pro V4
+# Naciones Presentaciones Pro V5
 
-## Cambios de esta versión
-- Se conserva el modelo de presentaciones independientes: “Presentación principal” y “Equipo Plantación” son proyectos distintos, cada uno con sus propias diapositivas.
-- Las entradas vacías que tengan el mismo nombre que una canción guardada se ocultan del listado de Presentaciones para que canciones antiguas creadas por error no aparezcan como proyectos separados. Los registros no se borran.
-- Se quitó la franja superior grande del panel central. Agregar diapositiva y Guardar se movieron a la barra compacta.
-- Se puede arrastrar PNG, JPG, WebP, MP4 y WebM desde el escritorio directamente a cualquier zona del panel central. Los archivos se guardan y se agregan como diapositivas a la presentación actualmente seleccionada.
-- También se puede arrastrar archivos directamente sobre una carpeta de presentación en el panel izquierdo: al soltarlos se abre esa presentación y se agregan ahí.
-- Las canciones se agrupan como carpetas dentro de la presentación activa. Cada sección de letra aparece como una diapositiva hija.
-- El editor de canciones separa por líneas en blanco reales: cada bloque de texto separado por una o más líneas vacías se convierte en una diapositiva independiente.
-- Se puede cargar el logotipo real haciendo clic en la N de la esquina superior izquierda. Selecciona `Naciones logo.png`; se guarda en la biblioteca local de ese navegador y sustituye la N.
-- Se conserva el efecto Fade y sus duraciones configurables.
+Actualización del flujo de operación, canciones, imágenes fijas y configuración.
 
-## Cómo usar
-1. Crea o selecciona `Equipo Plantación` en Presentaciones. Será independiente de `Presentación principal`.
-2. Arrastra archivos de imagen/video al área grande central para agregarlos a la presentación seleccionada.
-3. También puedes soltar archivos directamente sobre la carpeta `Equipo Plantación` en el panel izquierdo.
-4. Para agregar canciones, abre Canciones y elige una canción. Sus bloques de letra aparecerán como una carpeta dentro de la presentación activa.
-5. En la letra, deja una línea en blanco entre diapositivas.
-6. Haz clic en la N superior izquierda para cargar el PNG del logo.
+## Novedades de V5
+
+### 1. Agregar canciones a una presentación
+- Haz clic derecho en una canción desde la lista lateral o desde la pestaña superior Canciones.
+- Aparece un menú **Agregar a** con las presentaciones existentes.
+- Elige `Presentación principal`, `Equipo Plantación` u otra presentación.
+- La canción se agrega como un grupo/carpeta dentro de esa presentación.
+- También puedes elegir un destino en el selector “Agregar a presentación” del editor de canciones.
+- El proceso guarda primero la presentación y después agrega las diapositivas para evitar perder los cambios.
+
+### 2. Editor completo de letras
+En la pestaña superior Canciones puedes editar:
+- Nombre y autor.
+- Letra, con una diapositiva por bloque de texto.
+- Tipografía, tamaño y color.
+- Alineación y posición vertical.
+- Márgenes horizontales y verticales.
+- Interlineado y sombra.
+- Fondo por canción: imagen o video importado a la biblioteca local.
+
+**Regla de separación:** una línea en blanco entre bloques produce una nueva diapositiva. Al guardar, si la canción ya está dentro de una o más presentaciones, se actualizan sus bloques, estilos y fondo en esas carpetas.
+
+### 3. Imágenes fijas con atajos
+- En Presentar, abre Medios en el panel izquierdo.
+- Pulsa la estrella junto a una imagen para fijarla.
+- Las imágenes fijadas aparecen en la bandeja “Imágenes fijas” debajo de la cuadrícula de diapositivas.
+- Haz clic en una miniatura para agregarla a la presentación activa.
+- Los tres primeros accesos usan F7, F8 y F9 de forma predeterminada; puedes cambiarlos en Configuración.
+
+### 4. Configuración
+La pestaña superior Configuración permite:
+- Cambiar los atajos de siguiente/anterior, pantalla negra, limpiar, logotipo y modo prédica.
+- Asignar atajos a las tres primeras imágenes fijas.
+- Definir Fade o ninguna transición y su duración predeterminada.
+- Activar/desactivar el envío automático al seleccionar una diapositiva.
+- Pedir confirmación antes de limpiar la salida.
+- Exportar e importar respaldos.
+
+### 5. Identidad de Naciones
+- El logotipo horizontal se muestra en la cabecera.
+- El isotipo se usa para el favicon y el icono de accesos compatibles.
+- Se eliminó el texto “PRESENTACIONES” debajo del logotipo.
 
 ## Instalación
-Reemplaza `index.html`, `styles.css`, `app.js`, `sw.js`, `README.md` e `INSTRUCCIONES.txt` con los incluidos en el ZIP. Espera al despliegue y recarga con Ctrl+F5.
+1. Descomprime el ZIP.
+2. Reemplaza en la raíz del repositorio los archivos incluidos: `index.html`, `styles.css`, `app.js`, `sw.js`, `README.md`, `INSTRUCCIONES.txt` y los archivos de identidad gráfica.
+3. Conserva el `manifest.webmanifest` que ya existe en tu repositorio.
+4. Espera a que GitHub Pages termine de publicar.
+5. Recarga la aplicación con Ctrl+F5.
+6. Para usar Audiencia y Escenario, permite ventanas emergentes.
 
-## Datos
-Se conserva IndexedDB `naciones-presentaciones` versión 2. No borres los datos del sitio. El PNG seleccionado como logo se guarda en la base local del navegador. Haz un respaldo antes de actualizar.
+## Datos locales y compatibilidad
+- Se conserva IndexedDB `naciones-presentaciones`, versión 2.
+- No se borran las tiendas de medios y canciones existentes.
+- No borres los datos del sitio ni IndexedDB.
+- Antes de actualizar, descarga un respaldo desde el botón Respaldo.
+- Los archivos multimedia permanecen en el navegador y equipo donde se importan; no se sincronizan automáticamente entre computadoras.
 
-## Identidad visual oficial
-Esta versión incluye el logotipo horizontal `naciones-logo.png` en el encabezado y el isotipo `isotipo.png` como archivo maestro de identidad. El isotipo se utiliza también en `favicon-32.png`, `favicon.ico` y `apple-touch-icon.png` para la pestaña del navegador y accesos compatibles. No es necesario cargar estos archivos desde la interfaz: ya vienen dentro del proyecto.
+## Prueba recomendada
+Antes de usarlo en vivo:
+1. Abre Canciones, elige una canción y guarda su letra con dos bloques separados por una línea en blanco.
+2. Haz clic derecho en esa canción y usa Agregar a → Equipo Plantación.
+3. Verifica que aparezcan dos diapositivas dentro de la carpeta de canción.
+4. Arrastra una imagen PNG sobre el panel central de Equipo Plantación.
+5. Fija una imagen desde Medios y verifica que aparezca en la bandeja inferior.
+6. Abre Proyección y prueba Fade, pantalla negra y los atajos configurados.
+
+## Alcance y límites
+Esta versión implementa el flujo de operador en navegador y la salida independiente de audiencia/escenario. No incluye sincronización multiusuario ni audio profesional con enrutamiento de mezcladora. La validación de sintaxis no sustituye una prueba en el equipo real de proyección.
