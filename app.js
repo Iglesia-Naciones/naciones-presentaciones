@@ -313,10 +313,47 @@ function initProjection() {
     const url = URL.createObjectURL(blob); urls.set(key, { blob, url }); return url;
   }
   function fadeReplace(layer, node, duration) {
-    const old = layer.firstElementChild;
-    if (!duration) {
-      layer.replaceChildren(node); node.style.opacity = "1"; return;
+  const old = layer.firstElementChild;
+
+  if (!duration || duration <= 0) {
+    layer.replaceChildren(node);
+    node.style.opacity = "1";
+    return;
+  }
+
+  // Preparar la nueva diapositiva
+  node.style.opacity = "0";
+  node.style.transition = `opacity ${duration}ms ease-in-out`;
+
+  // Preparar la diapositiva anterior
+  if (old) {
+    old.style.opacity = "1";
+    old.style.transition = `opacity ${duration}ms ease-in-out`;
+  }
+
+  layer.appendChild(node);
+
+  // Forzar al navegador a registrar el estado inicial
+  void node.offsetWidth;
+
+  // Ejecutar ambas transiciones
+  requestAnimationFrame(() => {
+    node.style.opacity = "1";
+
+    if (old) {
+      old.style.opacity = "0";
     }
+  });
+
+  // Retirar la diapositiva anterior al terminar
+  if (old) {
+    setTimeout(() => {
+      if (old.parentNode === layer) {
+        old.remove();
+      }
+    }, duration + 80);
+  }
+}
     node.style.opacity = "0";
     node.style.transition = `opacity ${duration}ms ease-in-out`;
     layer.appendChild(node);
