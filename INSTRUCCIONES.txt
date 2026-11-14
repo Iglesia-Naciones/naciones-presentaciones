@@ -3,7 +3,7 @@ NACIONES PRESENTACIONES — TRANSFORMACIÓN COMPLETA
 1. Descarga y descomprime este ZIP.
 2. Sube/reemplaza index.html, app.js, styles.css, fixes.css y README.md en la raíz de tu repositorio.
 3. Conserva manifest.webmanifest y sw.js actuales.
-4. Espera a que GitHub Pages publique y recarga con Ctrl+F5.
+5. Espera a que GitHub Pages publique y recarga con Ctrl+F5.
 
 PROTECCIÓN DE DATOS:
 - Se conserva IndexedDB: naciones-presentaciones, versión 1.
