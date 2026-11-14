@@ -13,3 +13,7 @@ PROTECCIÓN DE DATOS:
 
 NOTA:
 Esta es una primera entrega de la nueva arquitectura. Prueba las funciones con una presentación de ensayo antes de usarla en un servicio en vivo. La proyección requiere permitir ventanas emergentes y usar HTTPS.
+
+FUNCIÓN NUEVA V3:
+- El botón “＋ Diapositiva” permite crear una diapositiva de texto, importar imagen/video directamente a la presentación o agregar la canción seleccionada.
+- Al importar medios desde el botón de agregar diapositiva, los archivos nuevos se insertan automáticamente en la presentación.
