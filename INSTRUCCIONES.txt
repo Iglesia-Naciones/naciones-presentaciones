@@ -1,62 +1,27 @@
-NACIONES PRESENTACIONES PRO V5 — INSTALACIÓN Y USO
+NACIONES PRESENTACIONES PRO V6 — INSTALACIÓN
 
-INSTALACIÓN
-1. Descomprime el ZIP.
-2. Reemplaza en la raíz de tu repositorio los archivos incluidos:
-   index.html, styles.css, app.js, sw.js, README.md, INSTRUCCIONES.txt y los archivos PNG/ICO de identidad.
-3. Conserva el archivo manifest.webmanifest que ya tienes en GitHub.
-4. Espera a que GitHub Pages publique y recarga con Ctrl+F5.
-5. No borres los datos del sitio ni IndexedDB.
+1. Descarga y descomprime el ZIP.
+2. Reemplaza los 11 archivos incluidos en la raíz de tu repositorio GitHub.
+3. Conserva tu `manifest.webmanifest` actual.
+4. Espera a que GitHub Pages publique.
+5. Recarga con Ctrl + F5.
+6. NO borres los datos del navegador ni IndexedDB.
 
-AGREGAR UNA CANCIÓN A UNA PRESENTACIÓN
-Opción A: clic derecho
-1. En Presentar, elige Canciones en el panel izquierdo, o abre la pestaña Canciones.
-2. Haz clic derecho en la canción.
-3. Selecciona “Agregar a”.
-4. Elige la presentación de destino.
+CORRECCIONES
+- La vista previa de la derecha reduce el texto para ajustarlo al recuadro, sin reducir el texto en la pantalla real del público.
+- Las miniaturas muestran el color y formato de letra elegidos.
+- En el panel izquierdo ahora hay dos secciones: Presentaciones y Canciones agregadas.
+- Cada canción agregada aparece como carpeta independiente debajo de la lista de presentaciones; dentro están sus diapositivas.
+- Si editas la canción y guardas, las diapositivas ya insertadas se actualizan con la nueva letra y el diseño.
+- El menú de clic derecho “Agregar a” guarda primero la canción abierta antes de insertarla.
 
-Opción B: desde el editor de canciones
-1. Abre Canciones y selecciona una canción.
-2. Edita la letra y el estilo.
-3. En “Agregar a presentación”, elige el proyecto.
-4. Pulsa “Agregar canción a presentación”.
-
-DIAPOSITIVAS DE LETRA
-- Cada bloque separado por una línea en blanco crea una diapositiva.
-- Ejemplo:
-
-  ESTOY PREPARANDO EL CAMINO
-  ENDEREZANDO LAS VEREDAS
-
-  Y CADA VEZ MÁS DISMINUYENDO
-  PORQUE IMPORTA QUE ÉL CREZCA
-
-- El ejemplo crea dos diapositivas.
-
-EDITOR DE LETRAS
-- Ajusta tipografía, tamaño, color, alineación, posición, márgenes, interlineado y sombra.
-- Asigna un fondo de imagen/video desde el selector.
-- Usa “Cargar imagen o video” para importar un fondo nuevo.
-- Al guardar, se actualizan las diapositivas de esa canción que ya estén agregadas en presentaciones.
-
-IMÁGENES FIJAS
-1. En el panel izquierdo, selecciona Medios.
-2. Pulsa ☆ junto a una imagen para fijarla.
-3. Aparecerá en la bandeja “Imágenes fijas” debajo de la cuadrícula.
-4. Haz clic en su miniatura para insertarla en la presentación.
-5. Por defecto, los tres primeros accesos fijos se activan con F7, F8 y F9.
-
-CONFIGURACIÓN
-- Abre Configuración en la barra superior.
-- Haz clic en un botón de atajo y presiona la tecla que quieras asignar.
-- Guarda la configuración.
-- También puedes cambiar transición predeterminada, duración, envío automático y confirmación al limpiar.
-
-LOGO E ISOTIPO
-- `naciones-logo.png` se muestra en la cabecera, sin el texto PRESENTACIONES debajo.
-- `isotipo.png`, `favicon-32.png`, `favicon.ico` y `apple-touch-icon.png` se usan para la pestaña y accesos compatibles.
+PRUEBA
+1. En Canciones, selecciona una canción.
+2. Ajusta color, tipografía y tamaño; pulsa Guardar canción.
+3. Haz clic derecho → Agregar a → elige la presentación.
+4. Regresa a Presentar: la canción debe aparecer en Canciones agregadas.
+5. Comprueba sus diapositivas y la vista previa.
+6. Abre Proyección para revisar el tamaño real de letra.
 
 RESPALDO
-- Exporta un respaldo antes de reemplazar archivos.
-- La base local naciones-presentaciones versión 2 se conserva.
-- NO borres los datos del navegador ni IndexedDB.
+Exporta un respaldo antes de reemplazar archivos. No elimines el almacenamiento local del navegador.

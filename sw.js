@@ -1,8 +1,7 @@
-const CACHE='naciones-presentaciones-pro-v7-operator';
+const CACHE='naciones-presentaciones-pro-v8-preview-folders';
 const ASSETS=[
- './','./index.html','./styles.css?v=8','./app.js?v=8',
- './naciones-logo.png','./isotipo.png','./favicon-32.png','./favicon.ico','./apple-touch-icon.png',
- 
+ './','./index.html','./styles.css?v=9','./app.js?v=9',
+ './naciones-logo.png','./isotipo.png','./favicon-32.png','./favicon.ico','./apple-touch-icon.png'
 ];
 self.addEventListener('install',event=>event.waitUntil(
  caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())

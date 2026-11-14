@@ -29,9 +29,15 @@ function slideNode(target,s){
  if(bg){let el=document.createElement(bg.type==='video'?'video':'img');el.src=objurl('bg-'+bg.id,bg.blob);el.className='screen-background';if(el.tagName==='VIDEO'){el.autoplay=true;el.loop=true;el.muted=target.id!=='projection-screen';el.playsInline=true;el.play().catch(()=>{})}target.append(el)}
  if(d.type==='song'||d.type==='text'||d.text){
   let t=document.createElement('div');t.className='screen-text';t.textContent=d.text||'';
-  t.style.fontFamily=d.fontFamily||'Montserrat';t.style.fontSize=(d.fontSize||5)+'vw';t.style.color=d.color||'#fff';t.style.textAlign=d.align||'center';
+  t.style.fontFamily=d.fontFamily||'Montserrat';
+  const designSize=Number(d.fontSize)||5;
+  const isCompactPreview=target.id==='operator-preview'||target.id==='editor-preview';
+  t.style.fontSize=isCompactPreview
+   ? `${designSize*(target.clientWidth/(window.innerWidth||1920))}vw`
+   : designSize+'vw';
+  t.style.color=d.color||'#fff';t.style.textAlign=d.align||'center';
   t.style.padding=`${d.marginY??8}% ${d.marginX??8}%`;t.style.lineHeight=d.lineHeight||1.3;
-  t.style.justifyItems=d.position==='top'?'center start':d.position==='bottom'?'center end':'center';
+  t.style.alignContent=d.position==='top'?'start':d.position==='bottom'?'end':'center';
   t.style.textShadow=d.shadow===false?'none':'0 2px 9px #000';target.append(t)
  }
 }
@@ -43,7 +49,7 @@ function handleExternalFileDrop(event){
  return true;
 }
 function renderSlides(){let g=$('slide-grid');$('slide-count').textContent=slides.length+' diapositivas';$('slide-position-counter').textContent=slides.length?`${selected+1} / ${slides.length}`:'0 / 0';if(!slides.length){g.innerHTML='<div class="empty-state"><b>Tu presentación está vacía</b><p>Agrega una diapositiva, una canción o un archivo multimedia.</p><button class="btn primary" id="empty-add">＋ Crear diapositiva</button></div>';if($('empty-add'))$('empty-add').onclick=createTextSlide;return}
-g.innerHTML=slides.map((s,i)=>{let d=dataFor(s),label=s.title||s.text?.slice(0,45)||d?.media?.name||'Diapositiva';let thumb='';if(d?.media?.type==='image')thumb=`<img src="${objurl('thumb'+d.media.id,d.media.blob)}">`;else if(d?.media?.type==='video')thumb='▶ VIDEO';else if(d?.background)thumb=`<img src="${objurl('thumbbg'+d.background.id,d.background.blob)}">`;return`<button class="slide-card ${i===selected?'selected':''}" data-slide="${i}" draggable="true"><div class="slide-thumb">${thumb}<span>${esc(s.text||label)}</span></div><div class="slide-label">${i+1}. ${esc(label)}</div></button>`}).join('');
+g.innerHTML=slides.map((s,i)=>{let d=dataFor(s),label=s.title||s.text?.slice(0,45)||d?.media?.name||'Diapositiva';let thumb='';if(d?.media?.type==='image')thumb=`<img src="${objurl('thumb'+d.media.id,d.media.blob)}">`;else if(d?.media?.type==='video')thumb='▶ VIDEO';else if(d?.background)thumb=`<img src="${objurl('thumbbg'+d.background.id,d.background.blob)}">`;return`<button class="slide-card ${i===selected?'selected':''}" data-slide="${i}" draggable="true"><div class="slide-thumb">${thumb}<span style="color:${esc(s.color||'#ffffff')};font-family:${esc(s.fontFamily||'Montserrat')};font-size:${Math.min(13,Math.max(8,(Number(s.fontSize)||5)*1.8))}px;line-height:${Number(s.lineHeight)||1.2};padding:${Math.min(12,Math.max(3,(Number(s.marginY)||8)/2))}px ${Math.min(16,Math.max(4,(Number(s.marginX)||8)/2))}px;text-shadow:${s.shadow===false?'none':'0 1px 4px #000'}">${esc(s.text||label)}</span></div><div class="slide-label">${i+1}. ${esc(label)}</div></button>`}).join('');
 g.querySelectorAll('[data-slide]').forEach(b=>{b.onclick=()=>selectSlide(+b.dataset.slide);b.ondblclick=()=>{selectSlide(+b.dataset.slide);setView('editor');loadEditor()};b.ondragstart=e=>{e.dataTransfer.setData('text/plain',b.dataset.slide);b.classList.add('dragging')};b.ondragend=()=>b.classList.remove('dragging');b.ondragover=e=>{e.preventDefault();b.classList.add('dragover')};b.ondragleave=()=>b.classList.remove('dragover');b.ondrop=e=>{if(e.dataTransfer.files?.length)return;e.preventDefault();let from=+e.dataTransfer.getData('text/plain'),to=+b.dataset.slide;if(Number.isInteger(from)&&from!==to){let [x]=slides.splice(from,1);slides.splice(to,0,x);selected=to;saveCurrent();renderAll()}}})}
 function selectSlide(i){if(i<0||i>=slides.length)return;selected=i;black=false;renderAll();if(appSettings.autoLive!==false)sendLive()}
 function renderPreview(){slideNode($('operator-preview'),currentSlide());let s=currentSlide();$('preview-label').textContent=s?.title||s?.text?.slice(0,60)||'Selecciona una diapositiva'}
@@ -87,12 +93,18 @@ function loadSongEditor(){
  populateSongTargets();renderSongStylePreview();
 }
 async function addSongSlides(song,targetPresentationId=activePresentation?.id){
+ if(addSongSlides.busy){toast('Agregando canción…');return false}
  if(!song){toast('No se encontró la canción');return false}
+ addSongSlides.busy=true;
+ if(activeSong?.id===song.id){
+  const saved=await saveSong();
+  if(!saved){addSongSlides.busy=false;return false}
+ }
  const parts=normalizedSongParts(song);
- if(!parts.length){toast('Esta canción no tiene letra. Escribe sus bloques y guarda primero.');return false}
+ if(!parts.length){addSongSlides.busy=false;toast('Esta canción no tiene letra. Escribe sus bloques y guarda primero.');return false}
  await saveCurrent();
  let target=presentations.find(p=>p.id===targetPresentationId);
- if(!target){toast('Selecciona una presentación de destino');return false}
+ if(!target){addSongSlides.busy=false;toast('Selecciona una presentación de destino');return false}
  if(activePresentation?.id!==target.id){
   activePresentation=target;slides=structuredClone(target.slides||[]);selected=slides.length-1;
  }
@@ -108,7 +120,7 @@ async function addSongSlides(song,targetPresentationId=activePresentation?.id){
  document.querySelectorAll('[data-library]').forEach(x=>x.classList.toggle('active',x.dataset.library==='presentations'));
  await saveCurrent();renderAll();sendLive();setView('show');
  toast(`“${song.title}” se agregó a “${target.name}” (${parts.length} diapositivas)`);
- return true;
+ addSongSlides.busy=false;return true;
 }
 async function addSongSlidesToPresentation(songId,presentationId){
  const song=songs.find(s=>s.id===songId);
@@ -141,24 +153,51 @@ async function switchPresentation(id){let p=presentations.find(x=>x.id===id);if(
 function renderLibraryList(){
  let items=$('library-items'),q=$('library-search').value.toLowerCase();
  $('song-count').textContent=songs.length;$('media-count').textContent=media.length;
- $('library-heading').textContent=({presentations:'Presentaciones',songs:'Canciones guardadas',media:'Medios',playlists:'Listas de servicio'})[activeLibrary];$('library-search').placeholder=({presentations:'Buscar presentaciones…',songs:'Buscar canciones…',media:'Buscar imágenes y videos…',playlists:'Buscar listas…'})[activeLibrary];
+ $('library-heading').textContent=({presentations:'Presentaciones',songs:'Canciones guardadas',media:'Medios',playlists:'Listas de servicio'})[activeLibrary];
+ $('library-search').placeholder=({presentations:'Buscar presentaciones…',songs:'Buscar canciones…',media:'Buscar imágenes y videos…',playlists:'Buscar listas…'})[activeLibrary];
  if(activeLibrary==='presentations'){
   const visiblePresentations=presentations.filter(p=>{
    const matchesSavedSong=songs.some(s=>(s.title||'').trim().toLocaleLowerCase()===(p.name||'').trim().toLocaleLowerCase());
    return !((p.slides||[]).length===0 && matchesSavedSong);
   });
   $('presentation-count').textContent=visiblePresentations.length;
-  items.innerHTML=visiblePresentations.filter(p=>(p.name||'').toLowerCase().includes(q)).map(p=>{
-   let active=p.id===activePresentation?.id,ps=p.slides||[],groups=[];
-   ps.forEach((s,i)=>{if(s.songGroupId&&!groups.some(g=>g.id===s.songGroupId))groups.push({id:s.songGroupId,title:s.songGroupTitle||s.title,slides:ps.filter(x=>x.songGroupId===s.songGroupId)})});
-   let nested=groups.map(g=>`<div class="tree-song"><button class="tree-song-head" data-songgroup="${g.id}"><span>▾</span> ♫ ${esc(g.title)} <small>${g.slides.length} diap.</small></button><div class="tree-song-children">${g.slides.map((s,i)=>`<button class="tree-slide" data-gslide="${s.id}">▤ ${esc(s.title||'Parte '+(i+1))}</button>`).join('')}</div></div>`).join('');
-   return `<div class="presentation-folder ${active?'active':''}" data-presentation="${p.id}" data-drop-presentation="${p.id}" draggable="false"><button class="presentation-folder-head" data-open-presentation="${p.id}"><span class="folder-icon">▣</span><span class="folder-name"><b>${esc(p.name)}</b><small>Presentación · ${ps.length} diapositivas</small></span><span class="folder-more">⋯</span></button>${nested}</div>`
-  }).join('')||'<p class="muted">No hay presentaciones.</p>';
-  items.querySelectorAll('[data-open-presentation]').forEach(b=>b.onclick=()=>switchPresentation(b.dataset.openPresentation));
+  const presentationCards=visiblePresentations.filter(p=>(p.name||'').toLowerCase().includes(q)).map(p=>{
+   const ps=p.slides||[],active=p.id===activePresentation?.id;
+   return `<div class="presentation-folder ${active?'active':''}" data-drop-presentation="${p.id}">
+    <button class="presentation-folder-head" data-open-presentation="${p.id}">
+     <span class="folder-icon">▣</span>
+     <span class="folder-name"><b>${esc(p.name)}</b><small>Presentación · ${ps.length} diapositivas</small></span>
+     <span class="folder-more">⋯</span>
+    </button>
+   </div>`;
+  }).join('')||'<p class="muted sidebar-empty">No hay presentaciones.</p>';
+
+  const groups=[];
+  (slides||[]).forEach(s=>{
+   if(s.songGroupId&&!groups.some(g=>g.id===s.songGroupId)){
+    groups.push({id:s.songGroupId,title:s.songGroupTitle||s.title,slides:slides.filter(x=>x.songGroupId===s.songGroupId)});
+   }
+  });
+  const visibleGroups=groups.filter(g=>!q||g.title.toLowerCase().includes(q));
+  const songFolders=visibleGroups.map(g=>`
+   <div class="song-library-folder">
+    <button class="song-library-folder-head" data-songgroup="${g.id}">
+     <span class="folder-icon">♫</span><span class="folder-name"><b>${esc(g.title)}</b><small>Canción · ${g.slides.length} diapositivas</small></span><span class="folder-more">⌄</span>
+    </button>
+    <div class="song-library-folder-children">
+     ${g.slides.map((s,i)=>`<button class="tree-slide" data-gslide="${s.id}">▤ ${esc(s.title||'Parte '+(i+1))}</button>`).join('')}
+    </div>
+   </div>`).join('');
+
+  items.innerHTML=`<div class="sidebar-section-label">PRESENTACIONES</div>${presentationCards}
+   <div class="sidebar-section-label songs-section-label">CANCIONES AGREGADAS <small>${esc(activePresentation?.name||'')}</small></div>
+   ${songFolders||'<div class="sidebar-empty-hint">Las canciones que agregues a esta presentación aparecerán aquí como carpetas, con sus diapositivas dentro.</div>'}`;
+
+  items.querySelectorAll('[data-open-presentation]').forEach(b=>b.onclick=()=>switchPresentation(b.closest('[data-drop-presentation]').dataset.dropPresentation));
   items.querySelectorAll('[data-gslide]').forEach(b=>b.onclick=()=>{let i=slides.findIndex(s=>s.id===b.dataset.gslide);if(i>=0)selectSlide(i)});
-  items.querySelectorAll('[data-songgroup]').forEach(b=>b.onclick=()=>{let id=b.dataset.songgroup;let i=slides.findIndex(s=>s.songGroupId===id);if(i>=0)selectSlide(i)});
+  items.querySelectorAll('[data-songgroup]').forEach(b=>b.onclick=()=>{let i=slides.findIndex(s=>s.songGroupId===b.dataset.songgroup);if(i>=0)selectSlide(i)});
   items.querySelectorAll('[data-drop-presentation]').forEach(el=>{
-   el.ondragover=e=>{if(e.dataTransfer.types.includes('Files')){e.preventDefault();el.classList.add('folder-drop-active')}};
+   el.ondragover=e=>{if(e.dataTransfer?.types?.includes('Files')){e.preventDefault();e.dataTransfer.dropEffect='copy';el.classList.add('folder-drop-active')}};
    el.ondragleave=()=>el.classList.remove('folder-drop-active');
    el.ondrop=e=>{if(!e.dataTransfer.files?.length)return;e.preventDefault();el.classList.remove('folder-drop-active');let pid=el.dataset.dropPresentation;switchPresentation(pid).then(()=>importFiles(e.dataTransfer.files,true))};
   });
