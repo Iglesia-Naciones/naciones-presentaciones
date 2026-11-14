@@ -42,3 +42,20 @@ V7 — SCROLL DE DIAPOSITIVAS
 INSTALACIÓN V7
 Reemplaza los archivos del ZIP, especialmente `index.html`, `styles.css`, `app.js` y `sw.js`.
 Conserva `manifest.webmanifest` y no borres IndexedDB ni los datos del navegador.
+
+
+V8 — IMÁGENES FIJAS (GLOBALES)
+- Las imágenes de la bandeja inferior son recursos extra y NO forman parte de ninguna presentación.
+- Pulsa una miniatura para mostrar esa imagen globalmente en Audiencia y Escenario.
+- La imagen seguirá visible aunque avances diapositivas o cambies de presentación.
+- Pulsa la misma miniatura otra vez para ocultarla.
+- “Limpiar salida” también la oculta.
+- Los atajos F7, F8 y F9 muestran/ocultan las primeras tres imágenes fijas; no insertan diapositivas.
+
+V8 — AUDIO DE VIDEOS
+- Los videos de diapositivas/fondos pueden reproducir su sonido en la ventana de Audiencia.
+- Abre Audiencia y pulsa una vez el botón “Activar audio de videos”. Los navegadores requieren una interacción directa para permitir audio automático.
+- Si ya hay un video reproduciéndose, el botón intenta quitar el silencio al video actual. Los siguientes videos de la sesión se reproducen con audio.
+- La ventana de Escenario permanece silenciada para evitar audio duplicado.
+- El sonido sale por la salida predeterminada del equipo. Selecciona en Windows/macOS la interfaz o bocinas conectadas al sistema de audio de la iglesia.
+- Si el navegador bloquea el audio, pulsa “Reintentar audio”.

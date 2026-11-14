@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=9">
 <link rel="shortcut icon" href="./favicon.ico?v=9">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=9">
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
 <div id="app" class="app">
@@ -43,8 +43,8 @@
    <div class="slide-toolbar"><span id="slide-count">0 diapositivas</span><span class="muted">Arrastra archivos aquí · suelta para agregarlos</span><div class="spacer"></div><button class="btn small" id="add-slide">＋ Diapositiva</button><button class="btn small" id="save-presentation">Guardar</button><button class="iconbtn" id="duplicate-slide" title="Duplicar">▢</button><button class="iconbtn danger" id="delete-slide" title="Eliminar">×</button></div>
    <div id="slide-grid" class="slide-grid"><div class="empty-state"><b>Tu presentación está vacía</b><p>Agrega una diapositiva, una canción o un archivo multimedia.</p><button class="btn primary" id="empty-add">＋ Crear diapositiva</button></div></div>
    <section class="quick-images-dock">
-    <div class="quick-images-head"><b>Imágenes fijas</b><small>Atajos para insertar fondos rápidamente</small><button class="textbtn" id="manage-quick-images">Administrar</button></div>
-    <div id="quick-images-grid" class="quick-images-grid"><span class="muted">Fija imágenes desde la Biblioteca para tenerlas aquí.</span></div>
+    <div class="quick-images-head"><b>Imágenes fijas</b><small>Recursos globales · no se agregan a ninguna presentación</small><button class="textbtn" id="manage-quick-images">Administrar</button></div>
+    <div id="quick-images-grid" class="quick-images-grid"><span class="muted">Fija imágenes en la Biblioteca. Al pulsarlas se muestran globalmente, sin crear diapositivas.</span></div>
    </section>
    <div class="bottom-controls"><button class="btn" id="prev-slide">← Anterior</button><span id="slide-position-counter">0 / 0</span><button class="btn" id="next-slide">Siguiente →</button><div class="spacer"></div><button class="btn" id="blackout">◐ Pantalla negra</button><button class="btn" id="clear-output">Limpiar salida</button><button class="btn primary" id="go-live">ENVIAR A PROYECCIÓN</button></div>
   </section>
@@ -172,5 +172,5 @@
 <input id="file-input" type="file" accept="image/*,video/*,audio/*" multiple hidden>
 <input id="song-bg-input" type="file" accept="image/*,video/mp4,video/webm" multiple hidden>
 <div id="toast" class="toast"></div>
-<script src="app.js?v=9"></script>
+<script src="app.js?v=10"></script>
 </body></html>

@@ -1,6 +1,6 @@
-const CACHE='naciones-presentaciones-pro-v9-rename-scroll';
+const CACHE='naciones-presentaciones-pro-v10-global-quick-media-audio';
 const ASSETS=[
- './','./index.html','./styles.css?v=9','./app.js?v=9',
+ './','./index.html','./styles.css?v=10','./app.js?v=10',
  './naciones-logo.png','./isotipo.png','./favicon-32.png','./favicon.ico','./apple-touch-icon.png'
 ];
 self.addEventListener('install',event=>event.waitUntil(

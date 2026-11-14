@@ -65,3 +65,31 @@ Se comprobó la sintaxis JavaScript, que los IDs HTML sean únicos, que las refe
 
 ## V7 — Instalación
 Reemplaza los archivos incluidos en este paquete, incluido `sw.js`, y conserva el `manifest.webmanifest` de tu repositorio. La clave de caché se actualizó para que el navegador detecte esta entrega. Después de publicar, recarga con Ctrl+F5.
+
+
+## V8 — Imágenes fijas globales y audio de video
+
+### Imágenes fijas: recursos globales
+- Las imágenes de la bandeja inferior **no se agregan a ninguna presentación ni modifican el número/orden de diapositivas**.
+- Al pulsar una imagen fija, se muestra como una capa independiente en la vista previa y en las salidas de Audiencia/Escenario.
+- La imagen permanece visible mientras se avanza o cambia de presentación; así funciona como recurso extra global.
+- Pulsa de nuevo la misma miniatura para retirarla.
+- “Limpiar salida” también retira la imagen global.
+- Los atajos F7, F8 y F9 muestran/ocultan las tres primeras imágenes fijas; tampoco crean diapositivas.
+- Al quitar la estrella de una imagen activa, se retira de la salida global.
+
+### Audio de videos
+- Los videos de las diapositivas y los videos asignados como fondo pueden reproducir su pista de audio en la ventana de **Audiencia**.
+- Por seguridad, el navegador inicia los videos silenciados hasta que el operador/usuario pulse **“Activar audio de videos”** en la ventana de Audiencia. También se puede hacer clic en la propia ventana de Audiencia para habilitarlo.
+- Después de habilitarlo una vez en esa ventana, los siguientes videos de esa sesión pueden reproducir audio.
+- La ventana de Escenario permanece silenciada para evitar duplicar el sonido.
+- El audio sale por la salida de audio predeterminada del equipo (bocinas, interfaz de audio o dispositivo seleccionado en el sistema). La aplicación no sustituye una consola de mezcla ni enruta canales de audio profesionales.
+- El navegador o el sistema operativo pueden bloquear la reproducción; si sucede, el control muestra un aviso y permite reintentar.
+
+## Prueba recomendada V8
+1. Anota el número de diapositivas de una presentación.
+2. Pulsa una miniatura en “Imágenes fijas”: debe aparecer en la salida sin cambiar el número de diapositivas.
+3. Avanza una diapositiva: la imagen global debe permanecer visible.
+4. Pulsa de nuevo la miniatura o “Limpiar salida”: la imagen global desaparece.
+5. Abre Audiencia, pulsa “Activar audio de videos” y envía una diapositiva con un MP4 que tenga audio.
+6. Confirma que se escucha por la salida seleccionada del equipo y que Escenario sigue silenciado.
