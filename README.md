@@ -93,3 +93,8 @@ Reemplaza los archivos incluidos en este paquete, incluido `sw.js`, y conserva e
 4. Pulsa de nuevo la miniatura o “Limpiar salida”: la imagen global desaparece.
 5. Abre Audiencia, pulsa “Activar audio de videos” y envía una diapositiva con un MP4 que tenga audio.
 6. Confirma que se escucha por la salida seleccionada del equipo y que Escenario sigue silenciado.
+
+
+## V9 — Miniaturas de diapositivas con tamaño fijo y scroll
+
+La cuadrícula central ahora usa filas automáticas de tamaño basado en el contenido (`max-content`) y tarjetas con proporción 16:9 y altura mínima. Cuando se agregan muchas diapositivas, las tarjetas ya no se comprimen para intentar caber en el panel: el contenedor conserva miniaturas legibles y desplaza verticalmente el contenido mediante su propia barra de scroll. La bandeja de imágenes fijas y los controles inferiores siguen anclados.

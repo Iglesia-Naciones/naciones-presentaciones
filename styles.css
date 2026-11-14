@@ -229,3 +229,60 @@ body:has(.output){overflow:hidden;background:#000}
  color:#9ae8d5;background:#0d211ddd;border:1px solid #285848;
  padding:6px 9px;border-radius:5px;font:11px Montserrat,Arial,sans-serif;
 }
+
+/* V9 — Las miniaturas mantienen tamaño legible aunque haya decenas o cientos de diapositivas. */
+@media (min-width: 761px){
+  #view-show .slide-grid{
+    grid-template-rows:none;
+    grid-auto-rows:max-content;
+    align-content:start;
+    justify-content:start;
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+  #view-show .slide-card{
+    align-self:start;
+    height:max-content;
+    min-height:0;
+  }
+  #view-show .slide-thumb{
+    width:100%;
+    height:auto;
+    min-height:96px;
+    aspect-ratio:16 / 9;
+    flex:none;
+  }
+  #view-show .slide-thumb span{
+    font-size:clamp(11px, .72vw, 14px);
+    line-height:1.25;
+    padding:10px;
+    max-height:100%;
+    overflow:hidden;
+    overflow-wrap:anywhere;
+  }
+  #view-show .slide-label{
+    display:block;
+    flex:none;
+    height:27px;
+    line-height:15px;
+    padding:6px 8px;
+  }
+}
+@media (max-width:760px){
+  #view-show .slide-grid{
+    grid-auto-rows:max-content;
+    align-content:start;
+  }
+  #view-show .slide-card{align-self:start;height:max-content}
+  #view-show .slide-thumb{min-height:84px;aspect-ratio:16 / 9}
+  #view-show .slide-thumb span{font-size:11px;line-height:1.2}
+}
+/* Scrollbar visible para identificar que hay más diapositivas abajo. */
+#view-show .slide-grid{
+  scrollbar-width:thin;
+  scrollbar-color:#3b647b #121d2b;
+}
+#view-show .slide-grid::-webkit-scrollbar{width:10px}
+#view-show .slide-grid::-webkit-scrollbar-track{background:#121d2b;border-radius:8px}
+#view-show .slide-grid::-webkit-scrollbar-thumb{background:#3b647b;border:2px solid #121d2b;border-radius:8px}
+#view-show .slide-grid::-webkit-scrollbar-thumb:hover{background:#4f8ba4}

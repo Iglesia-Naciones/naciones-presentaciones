@@ -59,3 +59,10 @@ V8 — AUDIO DE VIDEOS
 - La ventana de Escenario permanece silenciada para evitar audio duplicado.
 - El sonido sale por la salida predeterminada del equipo. Selecciona en Windows/macOS la interfaz o bocinas conectadas al sistema de audio de la iglesia.
 - Si el navegador bloquea el audio, pulsa “Reintentar audio”.
+
+
+V9 — MINIATURAS LEGIBLES
+- Con muchas diapositivas, las miniaturas conservan tamaño 16:9 y una altura mínima.
+- El contenido se recorre con el scroll vertical del panel central.
+- La bandeja de imágenes fijas y los controles inferiores permanecen en su sitio.
+- La barra de scroll tiene mayor contraste para que sea fácil identificarla.

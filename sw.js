@@ -1,6 +1,6 @@
-const CACHE='naciones-presentaciones-pro-v10-global-quick-media-audio';
+const CACHE='naciones-presentaciones-pro-v11-fixed-slide-thumbnails';
 const ASSETS=[
- './','./index.html','./styles.css?v=10','./app.js?v=10',
+ './','./index.html','./styles.css?v=11','./app.js?v=10',
  './naciones-logo.png','./isotipo.png','./favicon-32.png','./favicon.ico','./apple-touch-icon.png'
 ];
 self.addEventListener('install',event=>event.waitUntil(
