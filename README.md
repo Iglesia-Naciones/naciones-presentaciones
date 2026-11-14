@@ -24,3 +24,6 @@ Reemplaza `index.html`, `styles.css`, `app.js`, `sw.js`, `README.md` e `INSTRUCC
 
 ## Datos
 Se conserva IndexedDB `naciones-presentaciones` versión 2. No borres los datos del sitio. El PNG seleccionado como logo se guarda en la base local del navegador. Haz un respaldo antes de actualizar.
+
+## Identidad visual oficial
+Esta versión incluye el logotipo horizontal `naciones-logo.png` en el encabezado y el isotipo `isotipo.png` como archivo maestro de identidad. El isotipo se utiliza también en `favicon-32.png`, `favicon.ico` y `apple-touch-icon.png` para la pestaña del navegador y accesos compatibles. No es necesario cargar estos archivos desde la interfaz: ya vienen dentro del proyecto.

@@ -36,3 +36,10 @@ LOGOTIPO
 - Para usar el logo en otra computadora, hay que cargar el PNG también en ese equipo.
 
 El Fade y el control de duración se conservan.
+
+IDENTIDAD VISUAL
+- `naciones-logo.png` es el logo horizontal que aparece en la cabecera del programa.
+- `isotipo.png` es el isotipo original.
+- `favicon-32.png` y `favicon.ico` son los iconos de la pestaña del navegador.
+- `apple-touch-icon.png` se usa en accesos directos compatibles.
+No tienes que subir el logo desde la aplicación: estos recursos ya están incluidos en el ZIP.

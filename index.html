@@ -2,13 +2,20 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10151f"><title>Naciones Presentaciones</title>
-<link rel="stylesheet" href="styles.css?v=6">
+<meta name="theme-color" content="#10151f">
+<title>Naciones Presentaciones</title>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=7">
+<link rel="shortcut icon" href="./favicon.ico?v=7">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png?v=7">
+<link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 <div id="app" class="app">
 <header class="topbar">
- <div class="brand"><button class="brandmark" id="brand-trigger" type="button" title="Cargar logotipo de Naciones">N</button><span><b>NACIONES</b><small>PRESENTACIONES</small></span></div>
+ <div class="brand brand-static">
+  <img class="brand-logo" src="./naciones-logo.png" alt="Naciones" draggable="false">
+  <small class="brand-caption">PRESENTACIONES</small>
+ </div>
  <nav class="mainnav">
   <button class="nav active" data-view="show">▦ <span>Presentar</span></button>
   <button class="nav" data-view="songs">♫ <span>Canciones</span></button>
@@ -91,7 +98,6 @@
 
 <div id="modal" class="modal hidden"><div class="modal-card"><div class="panel-title"><b id="modal-title">Nueva presentación</b><button class="iconbtn" id="modal-close">×</button></div><div id="modal-body"></div></div></div>
 <input id="file-input" type="file" accept="image/*,video/*,audio/*" multiple hidden>
-<input id="logo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
 <div id="toast" class="toast"></div>
-<script src="app.js?v=6"></script>
+<script src="app.js?v=7"></script>
 </body></html>

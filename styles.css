@@ -48,3 +48,8 @@ body:has(.output){overflow:hidden;background:#000}
 .center-panel .slide-grid{min-height:420px}
 
 .brandmark{flex:none}
+
+/* Identidad oficial de Iglesia Naciones */
+.brand.brand-static{min-width:170px;width:182px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px}
+.brand-logo{display:block;width:160px;height:32px;object-fit:contain;object-position:left center;max-width:100%}
+.brand-caption{display:block;color:#9aa9bd;font-size:7px;letter-spacing:2.1px;line-height:1;margin-left:2px}
