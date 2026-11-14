@@ -66,3 +66,19 @@ V9 — MINIATURAS LEGIBLES
 - El contenido se recorre con el scroll vertical del panel central.
 - La bandeja de imágenes fijas y los controles inferiores permanecen en su sitio.
 - La barra de scroll tiene mayor contraste para que sea fácil identificarla.
+
+
+AUDIO PREDETERMINADO (V10/V12)
+- Se quitó el botón de activar audio de la ventana de Audiencia.
+- Los videos intentan reproducirse siempre con audio al 100% en Audiencia.
+- Escenario queda en silencio para evitar eco o audio duplicado.
+- Si el navegador bloquea el sonido automático, haz un clic normal dentro de la ventana de Audiencia; esto vuelve a intentar reproducir el video con audio. No hay botón adicional.
+- El sonido sale por la salida seleccionada en Windows/macOS.
+- Algunos navegadores pueden exigir interacción por sus políticas de reproducción automática. No es posible garantizar autoplay audible en todos los entornos únicamente mediante código de la página.
+
+
+AUDIO SIN BOTÓN
+- Los videos intentan reproducirse con audio desde el inicio en la ventana de Audiencia.
+- Ya no se muestra un botón de activar audio.
+- Si el navegador bloquea el sonido automático, haz clic una vez en cualquier parte de la ventana de Audiencia para reintentar. No se muestra ningún botón.
+- Escenario permanece silenciado para evitar duplicar audio.

@@ -373,174 +373,100 @@ function outputScreen(mode){
   <div class="output-text" id="output-text"></div>
   <div class="output-quick-layer" id="output-quick-layer"></div>
   <div class="output-status" id="output-status">${mode==='stage'?'VISTA DE ESCENARIO':'ESPERANDO PROYECCIÓN'}</div>
-  ${audience?'<button class="output-audio-toggle" id="output-audio-toggle" type="button">🔊 Activar audio de videos</button><span class="output-audio-state" id="output-audio-state">El sonido sale por la salida de audio de este equipo.</span>':''}
  </main>`;
- let audioEnabled=false;
-
- function applyVideoAudio(video){
-  video.muted=!audience||!audioEnabled;
+ // Audience video audio is on by default. Stage remains muted to avoid duplicate sound.
+ let audioGestureGranted=false;
+ let audioPlaybackBlocked=false;
+ let activeAudienceVideo=null;
+ function prepareVideoAudio(video){
+  video.muted=!audience;
+  video.defaultMuted=!audience;
   video.volume=1;
+  activeAudienceVideo=audience?video:null;
  }
- function unlockAudio(){
-  if(!audience)return;
-  audioEnabled=true;
-  const videos=[...document.querySelectorAll('#output-bg video')];
-  const attempts=videos.map(video=>{
-   video.muted=false;
-   video.volume=1;
-   return video.play().then(()=>true).catch(()=>false);
-  });
-  Promise.all(attempts).then(results=>{
-   const blocked=results.some(ok=>!ok);
-   const state=$('output-audio-state');
-   const button=$('output-audio-toggle');
-   if(blocked){
-    if(state)state.textContent='El navegador bloqueó el sonido. Pulsa Reintentar audio.';
-    if(button)button.textContent='Reintentar audio';
-   }else{
-    if(state)state.textContent='Audio de video activado · salida de audio del equipo';
-    if(button){button.textContent='🔊 Audio activado';button.classList.add('enabled')}
-   }
-  });
+ function retryAudienceAudio(){
+  if(!audience||!activeAudienceVideo)return;
+  audioGestureGranted=true;
+  activeAudienceVideo.muted=false;
+  activeAudienceVideo.defaultMuted=false;
+  activeAudienceVideo.volume=1;
+  activeAudienceVideo.play().then(()=>{audioPlaybackBlocked=false}).catch(()=>{audioPlaybackBlocked=true});
  }
  if(audience){
-  $('output-audio-toggle').addEventListener('click',unlockAudio);
-  $('output').addEventListener('click',event=>{
-   if(!audioEnabled&&!event.target.closest('#output-audio-toggle'))unlockAudio();
+  $('output').addEventListener('pointerdown',()=>{
+   if(audioPlaybackBlocked)retryAudienceAudio();
+  });
+  $('output').addEventListener('keydown',()=>{
+   if(audioPlaybackBlocked)retryAudienceAudio();
   });
  }
-
  function setQuickImage(item,fade,ms){
-  const layer=$('output-quick-layer');
-  const key=item?.id||'';
+  const layer=$('output-quick-layer'),key=item?.id||'';
   if(key===outputScreen.quickKey)return;
   outputScreen.quickKey=key;
   const old=layer.firstElementChild;
   if(item){
-   const img=document.createElement('img');
-   img.src=URL.createObjectURL(item.blob);
-   img.alt=item.name||'Imagen fija';
-   img.className='output-quick-image';
-   img.style.opacity=fade&&ms?0:1;
-   layer.append(img);
-   if(fade&&ms){
-    img.animate([{opacity:0},{opacity:1}],{duration:ms,easing:'ease-in-out',fill:'both'});
-    if(old){
-     old.animate([{opacity:1},{opacity:0}],{duration:ms,easing:'ease-in-out',fill:'both'});
-     setTimeout(()=>{URL.revokeObjectURL(old.src);old.remove()},ms+40);
-    }
-   }else if(old){URL.revokeObjectURL(old.src);old.remove()}
+   const img=document.createElement('img');img.src=URL.createObjectURL(item.blob);img.alt=item.name||'Imagen fija';img.className='output-quick-image';img.style.opacity=fade&&ms?0:1;layer.append(img);
+   if(fade&&ms){img.animate([{opacity:0},{opacity:1}],{duration:ms,easing:'ease-in-out',fill:'both'});if(old){old.animate([{opacity:1},{opacity:0}],{duration:ms,easing:'ease-in-out',fill:'both'});setTimeout(()=>{URL.revokeObjectURL(old.src);old.remove()},ms+40)}}
+   else if(old){URL.revokeObjectURL(old.src);old.remove()}
   }else if(old){
-   if(fade&&ms){
-    old.animate([{opacity:1},{opacity:0}],{duration:ms,fill:'both'});
-    setTimeout(()=>{URL.revokeObjectURL(old.src);old.remove()},ms+40);
-   }else{URL.revokeObjectURL(old.src);layer.replaceChildren()}
+   if(fade&&ms){old.animate([{opacity:1},{opacity:0}],{duration:ms,fill:'both'});setTimeout(()=>{URL.revokeObjectURL(old.src);old.remove()},ms+40)}
+   else{URL.revokeObjectURL(old.src);layer.replaceChildren()}
   }
  }
-
  function receive(message){
   if(!message||!['live','stage'].includes(message.type))return;
-  const root=$('output');
-  root.classList.toggle('is-black',!!message.black);
-  const fade=message.transition!=='none';
-  const ms=Math.max(0,Number(message.duration)||500);
-  // This global layer is independent from the current slide/playlist.
+  const root=$('output');root.classList.toggle('is-black',!!message.black);
+  const fade=message.transition!=='none',ms=Math.max(0,Number(message.duration)||500);
   setQuickImage(message.quickImage||null,fade,ms);
   if(message.black)return;
-
   $('output-status').style.display='none';
   const slide=message.slide;
-  if(!slide){
-   $('output-bg').replaceChildren();
-   $('output-text').textContent='';
-   return;
-  }
-
+  if(!slide){$('output-bg').replaceChildren();$('output-text').textContent='';return}
   const background=slide.background||(slide.media&&slide.media.type!=='audio'?slide.media:null);
   const bgKey=background?.id||'';
   if(bgKey!==outputScreen.bgKey){
    outputScreen.bgKey=bgKey;
-   const layer=$('output-bg');
-   const old=layer.firstElementChild;
+   const layer=$('output-bg'),old=layer.firstElementChild;
    if(background){
     const isVideo=background.type==='video';
     const element=document.createElement(isVideo?'video':'img');
-    element.src=URL.createObjectURL(background.blob);
-    element.className='output-background-media';
+    element.src=URL.createObjectURL(background.blob);element.className='output-background-media';
     if(isVideo){
-     element.autoplay=true;
-     element.loop=true;
-     element.playsInline=true;
-     element.controls=false;
-     applyVideoAudio(element);
-     layer.append(element);
-     element.play().catch(()=>{
-      if(audience){
-       const state=$('output-audio-state');
-       const button=$('output-audio-toggle');
-       if(state)state.textContent='El navegador no inició el sonido. Pulsa el botón para reintentar.';
-       if(button)button.textContent='Reintentar audio';
-      }
-     });
+     element.autoplay=true;element.loop=true;element.playsInline=true;element.controls=false;
+     prepareVideoAudio(element);layer.append(element);
+     element.play().then(()=>{audioPlaybackBlocked=false}).catch(()=>{if(audience){audioPlaybackBlocked=true;if(audioGestureGranted)retryAudienceAudio()}});
     }else{
+     if(activeAudienceVideo){activeAudienceVideo.pause();activeAudienceVideo=null}
      layer.append(element);
     }
     element.style.opacity=fade&&ms?0:1;
-    if(fade&&ms){
-     element.animate([{opacity:0},{opacity:1}],{duration:ms,easing:'ease-in-out',fill:'both'});
-     if(old){
-      old.animate([{opacity:1},{opacity:0}],{duration:ms,easing:'ease-in-out',fill:'both'});
-      setTimeout(()=>{if(old.tagName==='VIDEO')old.pause();URL.revokeObjectURL(old.src);old.remove()},ms+40);
-     }
-    }else if(old){
-     if(old.tagName==='VIDEO')old.pause();
-     URL.revokeObjectURL(old.src);
-     old.remove();
-    }
+    if(fade&&ms){element.animate([{opacity:0},{opacity:1}],{duration:ms,easing:'ease-in-out',fill:'both'});if(old){old.animate([{opacity:1},{opacity:0}],{duration:ms,easing:'ease-in-out',fill:'both'});setTimeout(()=>{if(old.tagName==='VIDEO')old.pause();URL.revokeObjectURL(old.src);old.remove()},ms+40)}}
+    else if(old){if(old.tagName==='VIDEO')old.pause();URL.revokeObjectURL(old.src);old.remove()}
    }else if(old){
-    if(fade&&ms){
-     old.animate([{opacity:1},{opacity:0}],{duration:ms,fill:'both'});
-     setTimeout(()=>{if(old.tagName==='VIDEO')old.pause();URL.revokeObjectURL(old.src);old.remove()},ms+40);
-    }else{
-     if(old.tagName==='VIDEO')old.pause();
-     URL.revokeObjectURL(old.src);
-     layer.replaceChildren();
-    }
+    activeAudienceVideo=null;
+    if(fade&&ms){old.animate([{opacity:1},{opacity:0}],{duration:ms,fill:'both'});setTimeout(()=>{if(old.tagName==='VIDEO')old.pause();URL.revokeObjectURL(old.src);old.remove()},ms+40)}
+    else{if(old.tagName==='VIDEO')old.pause();URL.revokeObjectURL(old.src);layer.replaceChildren()}
    }
   }
-
-  const text=$('output-text');
-  const next=slide.text||'';
+  const text=$('output-text'),next=slide.text||'';
   const signature=[next,slide.fontFamily,slide.fontSize,slide.color,slide.align,slide.position,slide.marginX,slide.marginY,slide.lineHeight,slide.shadow].join('|');
   if(signature!==outputScreen.signature){
-   outputScreen.signature=signature;
-   outputScreen.text=next;
-   text.textContent=next;
-   text.style.fontSize=(slide.fontSize||5)+'vw';
-   text.style.fontFamily=slide.fontFamily||'Montserrat';
-   text.style.color=slide.color||'#fff';
-   text.style.textAlign=slide.align||'center';
-   text.style.padding=`${slide.marginY??8}% ${slide.marginX??8}%`;
-   text.style.lineHeight=slide.lineHeight||1.3;
+   outputScreen.signature=signature;outputScreen.text=next;text.textContent=next;
+   text.style.fontSize=(slide.fontSize||5)+'vw';text.style.fontFamily=slide.fontFamily||'Montserrat';
+   text.style.color=slide.color||'#fff';text.style.textAlign=slide.align||'center';
+   text.style.padding=`${slide.marginY??8}% ${slide.marginX??8}%`;text.style.lineHeight=slide.lineHeight||1.3;
    text.style.justifyItems=slide.position==='top'?'center start':slide.position==='bottom'?'center end':'center';
    text.style.textShadow=slide.shadow===false?'none':'0 2px 10px #000';
-   if(fade&&ms){
-    text.style.opacity=0;
-    text.animate([{opacity:0},{opacity:1}],{duration:ms,easing:'ease-in-out',fill:'both'});
-   }else{
-    text.style.opacity=1;
-   }
+   if(fade&&ms){text.style.opacity=0;text.animate([{opacity:0},{opacity:1}],{duration:ms,easing:'ease-in-out',fill:'both'})}
+   else text.style.opacity=1;
   }
  }
  if(bc)bc.onmessage=event=>receive(event.data);
  window.addEventListener('message',event=>{if(event.origin===location.origin)receive(event.data)});
  window.opener?.postMessage({type:'output-ready'},location.origin);
- if(audience)$('output-audio-toggle').title='Activa el audio de videos desde esta ventana. El sonido sale por la salida de audio predeterminada del equipo.';
 }
-outputScreen.bgKey='';
-outputScreen.text='';
-outputScreen.signature='';
-outputScreen.quickKey='';
+outputScreen.bgKey='';outputScreen.text='';outputScreen.signature='';outputScreen.quickKey='';
 function openOutput(mode){let w=window.open(location.pathname+'?output='+mode,'naciones-'+mode,'popup,width=1280,height=720');if(!w)toast('Permite las ventanas emergentes para este sitio');else{if(mode==='stage')stageWindow=w;else projector=w;setTimeout(sendLive,700)}}
 function goBlack(){black=!black;sendLive();toast(black?'Pantalla negra':'Proyección activa')}
 function clearOutput(){if(appSettings.confirmClear&&!confirm('¿Limpiar la salida de proyección?'))return;black=false;activeQuickImageId=null;selected=-1;renderAll();sendLive()}

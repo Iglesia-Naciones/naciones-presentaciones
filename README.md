@@ -98,3 +98,19 @@ Reemplaza los archivos incluidos en este paquete, incluido `sw.js`, y conserva e
 ## V9 — Miniaturas de diapositivas con tamaño fijo y scroll
 
 La cuadrícula central ahora usa filas automáticas de tamaño basado en el contenido (`max-content`) y tarjetas con proporción 16:9 y altura mínima. Cuando se agregan muchas diapositivas, las tarjetas ya no se comprimen para intentar caber en el panel: el contenedor conserva miniaturas legibles y desplaza verticalmente el contenido mediante su propia barra de scroll. La bandeja de imágenes fijas y los controles inferiores siguen anclados.
+
+
+## V10/V12 — Audio de video habilitado por defecto
+- Se eliminó el botón visible “Activar audio de videos” y los avisos en pantalla.
+- La ventana de Audiencia crea los videos con audio habilitado (`muted=false`, volumen 100%).
+- La ventana de Escenario permanece silenciada para evitar duplicar el audio.
+- Si el navegador bloquea el autoplay con sonido, un clic normal dentro de la ventana de Audiencia reintenta la reproducción. No aparece un botón de activación.
+- El audio sale por el dispositivo de salida predeterminado del sistema. El navegador y las políticas de autoplay siguen teniendo la última palabra; una página web no puede garantizar sonido automático sin interacción en todos los equipos/navegadores.
+
+
+## Audio sin botón y habilitado por defecto
+- La ventana de Audiencia intenta reproducir videos con audio encendido desde el inicio (volumen al 100%).
+- Se quitó el control visible para activar audio.
+- Si el navegador bloquea el audio automático, un clic normal dentro de la ventana de Audiencia reintenta la reproducción; no aparece un botón.
+- La ventana de Escenario permanece silenciada para evitar duplicar el audio.
+- El audio sale por la salida de audio predeterminada del sistema. Las políticas de autoplay del navegador pueden exigir una interacción en esa ventana y no se pueden anular desde una página web.
