@@ -1,26 +1,18 @@
-NACIONES PRESENTACIONES PRO — INSTALACIÓN
+NACIONES PRESENTACIONES PRO V2 — ACTUALIZACIÓN
 
-ARCHIVOS:
-- index.html
-- styles.css
-- app.js
-- sw.js
-- README.md
+1. Descarga y descomprime este ZIP.
+2. Sube y reemplaza los seis archivos en la raíz de tu repositorio GitHub.
+3. Espera a que GitHub Pages publique.
+4. Abre tu sitio HTTPS y recarga con Ctrl+F5.
+5. No borres el almacenamiento del navegador ni IndexedDB.
 
-PASOS:
-1. Descarga y descomprime el ZIP.
-2. Sube TODOS los archivos a la raíz de tu repositorio GitHub Pages y acepta reemplazar.
-3. Espera a que termine el despliegue.
-4. Abre el sitio en HTTPS, recarga con Ctrl+F5.
-5. Permite ventanas emergentes.
-6. Pulsa “Proyección” y mueve esa ventana a la pantalla del público. Pulsa F11 para pantalla completa.
-7. Pulsa “Escenario” para abrir una ventana independiente para monitores de escenario.
+NUEVO FLUJO:
+- En Presentar, el panel izquierdo muestra Canciones, Medios y Presentaciones.
+- Pulsa Canciones para desplegar tu repertorio.
+- Pulsa una canción (por ejemplo, Es Él) para agregar sus letras como diapositivas consecutivas a la presentación principal.
+- Pulsa Medios para ver archivos; usa el botón de imagen para cargar PNG o arrastra imágenes/videos al panel.
+- En Vista previa elige Fade y su duración. La transición se verá en las ventanas de audiencia y escenario.
+- En la barra superior, Canciones abre el editor del repertorio.
 
-DATOS:
-- La base `naciones-presentaciones` se actualiza de versión 1 a 2.
-- Conserva las tiendas antiguas de media y songs; añade presentations y playlists.
-- NO borres los datos del sitio ni IndexedDB.
-- Descarga un respaldo desde “Respaldo” antes de actualizar.
-
-PRUEBA:
-Antes de usar en vivo, prueba importar archivos, guardar una canción, crear una presentación, cambiar diapositivas, pantalla negra, proyección y escenario.
+RESPALDO:
+Descarga un respaldo desde el botón Respaldo antes de actualizar. La base IndexedDB se mantiene en versión 2.

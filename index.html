@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#10151f"><title>Naciones Presentaciones</title>
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 <div id="app" class="app">
@@ -11,10 +11,7 @@
  <div class="brand"><span class="brandmark">N</span><span><b>NACIONES</b><small>PRESENTACIONES</small></span></div>
  <nav class="mainnav">
   <button class="nav active" data-view="show">▦ <span>Presentar</span></button>
-  <button class="nav" data-view="library">▤ <span>Biblioteca</span></button>
   <button class="nav" data-view="songs">♫ <span>Canciones</span></button>
-  <button class="nav" data-view="editor">✎ <span>Editor</span></button>
-  <button class="nav" data-view="bible">▣ <span>Biblia</span></button>
  </nav>
  <div class="topright"><span class="online"><i></i> Guardado local</span><button class="btn" id="open-stage">Escenario ↗</button><button class="btn primary" id="open-audience">Proyección ↗</button></div>
 </header>
@@ -24,14 +21,14 @@
   <aside class="panel left-panel">
    <div class="panel-title"><div><b>Biblioteca</b><small>Contenido de tu equipo</small></div><button class="iconbtn" id="new-presentation" title="Nueva presentación">＋</button></div>
    <div class="library-tree">
-    <button class="treeitem active" data-library="presentations">▣ Presentaciones <span id="presentation-count">0</span></button>
-    <button class="treeitem" data-library="songs">♫ Canciones <span id="song-count">0</span></button>
+    <button class="treeitem active" data-library="songs">♫ Canciones <span id="song-count">0</span></button>
     <button class="treeitem" data-library="media">▧ Medios <span id="media-count">0</span></button>
-    <button class="treeitem" data-library="playlists">☷ Listas de servicio</button>
+    <button class="treeitem" data-library="presentations">▣ Presentaciones <span id="presentation-count">0</span></button>
    </div>
-   <div class="subhead"><b id="library-heading">Presentaciones</b><button class="iconbtn" id="add-library-item">＋</button></div>
-   <input id="library-search" class="search" placeholder="Buscar en biblioteca…">
+   <div class="subhead"><b id="library-heading">Canciones</b><div><button class="iconbtn" id="sidebar-png" title="Agregar PNG">▧</button><button class="iconbtn" id="add-library-item" title="Agregar">＋</button></div></div>
+   <input id="library-search" class="search" placeholder="Buscar canciones…">
    <div id="library-items" class="library-items"></div>
+   <div id="sidebar-drop" class="sidebar-drop">Arrastra aquí PNG, imágenes o videos</div>
    <div class="panel-foot"><span class="status-dot"></span> Biblioteca local <button id="backup-btn" class="textbtn">Respaldo</button></div>
   </aside>
   <section class="panel center-panel">
@@ -45,6 +42,10 @@
     <div class="panel-title"><div><b>Vista previa</b><small>Salida de audiencia</small></div><span class="live-indicator"><i></i> LISTA</span></div>
     <div class="preview-frame"><div id="operator-preview" class="screen"><span>Sin diapositiva</span></div></div>
     <div class="preview-meta"><span id="preview-label">Selecciona una diapositiva</span><span>16:9</span></div>
+    <div class="transition-controls">
+      <label>Transición <select id="transition-type"><option value="fade">Fade</option><option value="none">Ninguna</option></select></label>
+      <label>Duración <select id="transition-duration"><option value="250">250 ms</option><option value="500" selected>500 ms</option><option value="750">750 ms</option><option value="1000">1 s</option><option value="1500">1.5 s</option></select></label>
+    </div>
    </section>
    <section class="panel quick-panel">
     <div class="panel-title"><div><b>Acciones rápidas</b><small>Controles de proyección</small></div></div>
@@ -56,8 +57,8 @@
 </section>
 
 <section class="view" id="view-library">
- <div class="pagehead"><div><h1>Biblioteca multimedia</h1><p>Organiza imágenes, videos y audio para tus presentaciones.</p></div><button class="btn primary" id="import-media">＋ Importar archivos</button></div>
- <div class="panel"><div class="library-filters"><input id="media-search" class="search" placeholder="Buscar archivos…"><select id="media-filter"><option value="all">Todos los medios</option><option value="image">Imágenes</option><option value="video">Videos</option><option value="audio">Audio</option></select></div><div id="media-cards" class="media-cards"></div><div id="media-empty" class="empty-state"><b>Tu biblioteca está vacía</b><p>Importa imágenes, videos o audio desde tu equipo.</p></div></div>
+ <div class="pagehead"><div><h1>Biblioteca multimedia</h1><p>Arrastra aquí tus PNG, imágenes y videos, o selecciónalos desde tu equipo.</p></div><div class="inline-actions"><button class="btn" id="import-png">＋ Agregar PNG</button><button class="btn primary" id="import-media">＋ Importar archivos</button></div></div>
+ <div class="panel media-drop-panel" id="media-drop-panel"><div class="drop-hint">Suelta aquí archivos PNG, JPG, WEBP, MP4 o WEBM</div><div class="library-filters"><input id="media-search" class="search" placeholder="Buscar archivos…"><select id="media-filter"><option value="all">Todos los medios</option><option value="image">Imágenes</option><option value="video">Videos</option><option value="audio">Audio</option></select></div><div id="media-cards" class="media-cards"></div><div id="media-empty" class="empty-state"><b>Tu biblioteca está vacía</b><p>Importa imágenes, videos o audio desde tu equipo.</p></div></div>
 </section>
 
 <section class="view" id="view-songs">
@@ -92,5 +93,5 @@
 <div id="modal" class="modal hidden"><div class="modal-card"><div class="panel-title"><b id="modal-title">Nueva presentación</b><button class="iconbtn" id="modal-close">×</button></div><div id="modal-body"></div></div></div>
 <input id="file-input" type="file" accept="image/*,video/*,audio/*" multiple hidden>
 <div id="toast" class="toast"></div>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body></html>

@@ -1,33 +1,27 @@
-# Naciones Presentaciones Pro V1
+# Naciones Presentaciones Pro V2
 
-Plataforma web local-first para operación de presentaciones y proyección, inspirada en el flujo de trabajo de ProPresenter.
+Actualización centrada en el flujo de trabajo de canciones, medios y transición Fade.
 
-## Incluye
-- Interfaz de operador con biblioteca, playlist de presentación, cuadrícula de diapositivas y vista previa.
-- Bibliotecas locales de presentaciones, canciones, medios y listas de servicio.
-- Editor de diapositivas de texto, tipografía, tamaño, color, alineación, posición y sombra.
-- Cancionero con estrofas separadas por bloques y fondos fijos de imagen/video.
-- Importación de imágenes, videos y audio a IndexedDB.
-- Pantallas independientes de audiencia y escenario.
-- Envío en vivo mediante BroadcastChannel y postMessage.
-- Acciones rápidas: pantalla negra, limpiar, logotipo y modo prédica.
-- Temporizador.
-- Módulo de pasajes bíblicos: permite pegar texto de la versión que la iglesia tenga autorización de usar.
-- Respaldo JSON descargable e importable.
+## Cambios V2
+- Barra superior simplificada a **Presentar** y **Canciones**.
+- Panel lateral con **Canciones**, **Medios** y acceso a **Presentaciones**.
+- Al pulsar una canción en el panel lateral, se agregan sus secciones de letra como diapositivas consecutivas a la presentación activa.
+- La vista Canciones del panel superior permite crear, editar y guardar el repertorio.
+- Importación rápida de PNG desde el botón de imagen del panel lateral.
+- Arrastrar y soltar PNG, JPG, WEBP, imágenes y videos en el área de medios del panel lateral.
+- También se puede arrastrar contenido al área de biblioteca multimedia.
+- Transición Fade real en las ventanas de audiencia y escenario, con selector de duración (250 ms a 1.5 s) y opción Ninguna.
+- Doble clic en una diapositiva para abrir su editor.
 
 ## Instalación
 1. Descomprime el ZIP.
-2. Sube todos los archivos a la raíz del repositorio GitHub Pages.
-3. Espera a que Pages termine de publicar.
-4. Abre la URL HTTPS, permite ventanas emergentes y pulsa Proyección / Escenario.
-5. Usa dos pantallas: mueve la ventana de audiencia a la pantalla del proyector y déjala en pantalla completa.
+2. Reemplaza los archivos de la raíz de tu repositorio por los incluidos.
+3. Espera a que GitHub Pages termine de publicar.
+4. Abre el sitio en HTTPS y recarga con Ctrl+F5.
+5. Permite ventanas emergentes para abrir Audiencia y Escenario.
 
-## Datos existentes
-La app actualiza IndexedDB `naciones-presentaciones` de versión 1 a versión 2. La actualización agrega almacenes `presentations` y `playlists` sin eliminar `media` ni `songs`. No borres los datos del sitio. Antes de actualizar, descarga un respaldo desde el botón Respaldo.
+## Datos
+Se conserva IndexedDB `naciones-presentaciones` versión 2 y sus almacenes. No borres los datos del navegador. Descarga un respaldo antes de actualizar.
 
-## Limitaciones honestas de esta entrega
-- No incluye traducciones bíblicas; pega pasajes de una fuente cuyo uso esté autorizado.
-- La salida de escenario es una ventana independiente básica; el contenido mostrado sigue el mismo estado en vivo.
-- Los videos y audios se importan localmente; la reproducción de audio en vivo y el enrutamiento de audio del sistema requieren pruebas/configuración adicional del navegador y equipo.
-- No tiene sincronización multiusuario ni almacenamiento en la nube. Los medios permanecen en el navegador de ese equipo.
-- La compatibilidad de pantalla completa, autoplay y dos monitores debe probarse en el equipo real antes de un servicio.
+## Nota
+La transición Fade se aplica a las ventanas independientes de audiencia y escenario. Haz una prueba de proyección antes de usarla en una reunión. La sincronización de medios depende del navegador y del equipo.
