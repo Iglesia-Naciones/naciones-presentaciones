@@ -20,3 +20,20 @@ body:has(.output){overflow:hidden;background:#000}
 .media-drop-panel{transition:background .15s,border-color .15s}
 .libitem{cursor:pointer}
 .libitem small{display:block}
+
+/* V3: presentation folders with nested song sections */
+.presentation-folder{margin:5px 3px;border:1px solid transparent;border-radius:7px;overflow:hidden;background:#111c2a}
+.presentation-folder.active{border-color:#236c5a;background:#142b31}
+.presentation-folder-head{width:100%;display:flex;align-items:center;gap:8px;text-align:left;background:transparent;border:0;padding:10px 8px;color:#e8eef6}
+.folder-icon{font-size:14px;color:#68cdb5}
+.folder-name{min-width:0;flex:1}
+.folder-name b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.folder-name small{display:block;color:#8799ae;font-size:8px;margin-top:3px}
+.folder-more{color:#8294a9}
+.tree-song{margin:0 7px 6px 24px;border-left:1px solid #38516a;padding-left:7px}
+.tree-song-head{width:100%;border:0;background:#1b293b;color:#c8d6e5;border-radius:5px;padding:7px;text-align:left;font-size:9px}
+.tree-song-head small{float:right;color:#7f93aa;font-size:8px}
+.tree-song-children{display:grid;gap:2px;padding:4px 0 2px 8px}
+.tree-slide{border:0;background:transparent;color:#8fa4ba;text-align:left;font-size:8px;padding:5px 4px;border-radius:4px}
+.tree-slide:hover{background:#20384a;color:#fff}
+.presentation-folder.folder-drop-active{border:2px dashed #39cba5;background:#174437;box-shadow:0 0 0 3px #39cba522}

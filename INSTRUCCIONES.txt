@@ -1,18 +1,23 @@
-NACIONES PRESENTACIONES PRO V2 — ACTUALIZACIÓN
+NACIONES PRESENTACIONES PRO V3 — INSTALACIÓN Y USO
 
-1. Descarga y descomprime este ZIP.
-2. Sube y reemplaza los seis archivos en la raíz de tu repositorio GitHub.
-3. Espera a que GitHub Pages publique.
-4. Abre tu sitio HTTPS y recarga con Ctrl+F5.
-5. No borres el almacenamiento del navegador ni IndexedDB.
+INSTALACIÓN
+1. Descomprime el ZIP.
+2. Reemplaza los seis archivos en la raíz de GitHub Pages.
+3. Espera a que publique y recarga con Ctrl+F5.
+4. NO borres los datos del sitio ni IndexedDB.
 
-NUEVO FLUJO:
-- En Presentar, el panel izquierdo muestra Canciones, Medios y Presentaciones.
-- Pulsa Canciones para desplegar tu repertorio.
-- Pulsa una canción (por ejemplo, Es Él) para agregar sus letras como diapositivas consecutivas a la presentación principal.
-- Pulsa Medios para ver archivos; usa el botón de imagen para cargar PNG o arrastra imágenes/videos al panel.
-- En Vista previa elige Fade y su duración. La transición se verá en las ventanas de audiencia y escenario.
-- En la barra superior, Canciones abre el editor del repertorio.
+AGREGAR FOTOS DIRECTAMENTE A “EQUIPO PLANTACIÓN”
+1. Abre Presentar.
+2. En el panel izquierdo, selecciona Presentaciones.
+3. Arrastra los archivos PNG/JPG/WEBP/videos desde tu computadora.
+4. Suéltalos directamente encima de la tarjeta “Equipo Plantación”.
+5. Se guardan en la biblioteca local y se agregan inmediatamente como diapositivas de esa presentación.
 
-RESPALDO:
-Descarga un respaldo desde el botón Respaldo antes de actualizar. La base IndexedDB se mantiene en versión 2.
+AGREGAR CANCIONES COMO CARPETAS
+1. Abre Canciones guardadas en el panel izquierdo.
+2. Haz clic en una canción, por ejemplo “Es Él”.
+3. Regresa a Presentaciones: debajo de “Equipo Plantación” aparece una carpeta con el nombre de la canción.
+4. Dentro de esa carpeta aparecen sus diapositivas de letra.
+5. Haz clic en cualquier sección para seleccionarla.
+
+La transición Fade y sus controles se conservan.

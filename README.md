@@ -1,27 +1,20 @@
-# Naciones Presentaciones Pro V2
+# Naciones Presentaciones Pro V3 — Organización por carpetas
 
-Actualización centrada en el flujo de trabajo de canciones, medios y transición Fade.
+## Cambios solicitados
+1. **Arrastrar imágenes directamente a la presentación:** desde el explorador de archivos arrastra PNG, JPG, WEBP o videos sobre la carpeta de presentación (por ejemplo, “Equipo Plantación”) en el panel izquierdo. Los archivos se importan y se insertan inmediatamente como diapositivas en esa presentación. Ya no necesitas pasar por la biblioteca Medios.
+2. **Canciones como carpetas dentro de la presentación:** al elegir una canción en Canciones guardadas, sus estrofas se agregan a la presentación activa como un grupo identificado por el nombre de la canción. En el panel izquierdo, debajo de la presentación, aparece la carpeta de esa canción y debajo las diapositivas de sus letras.
+3. Puedes seleccionar una diapositiva desde esa carpeta para editarla o proyectarla.
+4. Se conserva Fade y sus duraciones de la V2.
 
-## Cambios V2
-- Barra superior simplificada a **Presentar** y **Canciones**.
-- Panel lateral con **Canciones**, **Medios** y acceso a **Presentaciones**.
-- Al pulsar una canción en el panel lateral, se agregan sus secciones de letra como diapositivas consecutivas a la presentación activa.
-- La vista Canciones del panel superior permite crear, editar y guardar el repertorio.
-- Importación rápida de PNG desde el botón de imagen del panel lateral.
-- Arrastrar y soltar PNG, JPG, WEBP, imágenes y videos en el área de medios del panel lateral.
-- También se puede arrastrar contenido al área de biblioteca multimedia.
-- Transición Fade real en las ventanas de audiencia y escenario, con selector de duración (250 ms a 1.5 s) y opción Ninguna.
-- Doble clic en una diapositiva para abrir su editor.
+## Cómo usarlo
+- En Presentar, abre la categoría Presentaciones.
+- Selecciona “Equipo Plantación”.
+- Para fotos: arrastra uno o varios archivos desde tu computadora y suéltalos directamente sobre la tarjeta “Equipo Plantación”. Verás que se agregan como diapositivas.
+- Para letras: abre Canciones guardadas, haz clic en “Es Él” o “Envíame”. La canción aparecerá como carpeta debajo de “Equipo Plantación”, con sus secciones de letra dentro.
+- Haz clic en una sección para seleccionarla en la cuadrícula central.
 
 ## Instalación
-1. Descomprime el ZIP.
-2. Reemplaza los archivos de la raíz de tu repositorio por los incluidos.
-3. Espera a que GitHub Pages termine de publicar.
-4. Abre el sitio en HTTPS y recarga con Ctrl+F5.
-5. Permite ventanas emergentes para abrir Audiencia y Escenario.
+Reemplaza los seis archivos del ZIP en la raíz del repositorio GitHub Pages. Espera el despliegue y recarga el sitio con Ctrl+F5. Permite ventanas emergentes para la proyección.
 
 ## Datos
-Se conserva IndexedDB `naciones-presentaciones` versión 2 y sus almacenes. No borres los datos del navegador. Descarga un respaldo antes de actualizar.
-
-## Nota
-La transición Fade se aplica a las ventanas independientes de audiencia y escenario. Haz una prueba de proyección antes de usarla en una reunión. La sincronización de medios depende del navegador y del equipo.
+Se mantiene la base IndexedDB `naciones-presentaciones` versión 2. No borres los datos del navegador. Descarga un respaldo antes de actualizar.

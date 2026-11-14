@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#10151f"><title>Naciones Presentaciones</title>
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
 <div id="app" class="app">
@@ -21,14 +21,14 @@
   <aside class="panel left-panel">
    <div class="panel-title"><div><b>Biblioteca</b><small>Contenido de tu equipo</small></div><button class="iconbtn" id="new-presentation" title="Nueva presentación">＋</button></div>
    <div class="library-tree">
-    <button class="treeitem active" data-library="songs">♫ Canciones <span id="song-count">0</span></button>
+    <button class="treeitem" data-library="songs">♫ Canciones <span id="song-count">0</span></button>
     <button class="treeitem" data-library="media">▧ Medios <span id="media-count">0</span></button>
-    <button class="treeitem" data-library="presentations">▣ Presentaciones <span id="presentation-count">0</span></button>
+    <button class="treeitem active" data-library="presentations">▣ Presentaciones <span id="presentation-count">0</span></button>
    </div>
-   <div class="subhead"><b id="library-heading">Canciones</b><div><button class="iconbtn" id="sidebar-png" title="Agregar PNG">▧</button><button class="iconbtn" id="add-library-item" title="Agregar">＋</button></div></div>
-   <input id="library-search" class="search" placeholder="Buscar canciones…">
+   <div class="subhead"><b id="library-heading">Presentaciones</b><button class="iconbtn" id="add-library-item" title="Agregar">＋</button></div>
+   <input id="library-search" class="search" placeholder="Buscar presentaciones…">
    <div id="library-items" class="library-items"></div>
-   <div id="sidebar-drop" class="sidebar-drop">Arrastra aquí PNG, imágenes o videos</div>
+   
    <div class="panel-foot"><span class="status-dot"></span> Biblioteca local <button id="backup-btn" class="textbtn">Respaldo</button></div>
   </aside>
   <section class="panel center-panel">
@@ -93,5 +93,5 @@
 <div id="modal" class="modal hidden"><div class="modal-card"><div class="panel-title"><b id="modal-title">Nueva presentación</b><button class="iconbtn" id="modal-close">×</button></div><div id="modal-body"></div></div></div>
 <input id="file-input" type="file" accept="image/*,video/*,audio/*" multiple hidden>
 <div id="toast" class="toast"></div>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body></html>
